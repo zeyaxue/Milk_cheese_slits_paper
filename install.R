@@ -1,6 +1,5 @@
 install.packages("knitr")
 install.packages("rmarkdown")
-install.packages("phyloseq")
 install.packages("vegan")
 install.packages("ggplot2")
 install.packages("ggpubr")
@@ -12,3 +11,7 @@ install.packages("dplyr")
 
 source("http://www.bioconductor.org/biocLite.R")
 biocLite("DESeq2")
+biocLite("phyloseq")
+
+install.packages("devtools")
+devtools::install_github("benjjneb/decontam")

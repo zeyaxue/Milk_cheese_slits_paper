@@ -1,0 +1,213 @@
+SampleID,KIT,VOL,STORAGE,MATRIX,PMA,SampleOrCtrl,LYSING,Chemical_time,Bead_beat_speed_time,vortex_time,Rnase,Protein_cleanup,Description
+Blank.30ml.UHT.1,NA,NA,NA,MILK,N,UHT_NC,Bead_beating,NA,6.5_2min,NA,,,30ml_UHT_NC
+Blank.500ul.glycerol.1,NA,NA,NA,glycerol,N,Glycerol_NC,Bead_beating,NA,6.5_2min,NA,,,500ul_glycerol_NC
+Blank.500ul.PBS.1,NA,NA,NA,PBS,N,PBS_NC,Bead_beating,NA,6.5_2min,NA,,,500ul_PBS_NC
+IONSEQ1,Total,NA,NA,NA,N,SEQCTRL,NA,NA,NA,NA,,,AmpliconMC
+IONSEQ2,Total,NA,NA,NA,N,SEQCTRL,NA,NA,NA,NA,,,AmpliconMC
+IONSEQ3,Total,NA,NA,NA,N,SEQCTRL,NA,NA,NA,NA,,,AmpliconMC
+IONMB1,MoBio,NA,NA,Culture_media,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC1
+IONMB2,MoBio,NA,NA,Culture_media,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC1
+IONMB3,MoBio,NA,NA,Culture_media,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC1
+IONMB4,MoBio,NA,NA,PBS,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC1
+IONMB5,MoBio,NA,NA,PBS,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC1
+IONMB6,MoBio,NA,NA,PBS,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC1
+IONMB7,MoBio,NA,NA,SKIM-MILK,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC1
+IONMB8,MoBio,NA,NA,SKIM-MILK,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC1
+IONMB9,MoBio,NA,NA,SKIM-MILK,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC1
+IONMB10,MoBio,NA,FreezeThaw,PBS,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC1
+IONMB11,MoBio,NA,FreezeThaw,PBS,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC1
+IONMB12,MoBio,NA,FreezeThaw,PBS,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC1
+IONMM1,Total,NA,NA,Culture_media,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC1
+IONMM2,Total,NA,NA,Culture_media,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC1
+IONMM3,Total,NA,NA,Culture_media,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC1
+IONMM4,Total,NA,NA,PBS,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC1
+IONMM5,Total,NA,NA,PBS,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC1
+IONMM6,Total,NA,NA,PBS,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC1
+IONMM7,Total,NA,NA,SKIM-MILK,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC1
+IONMM8,Total,NA,NA,SKIM-MILK,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC1
+IONMM9,Total,NA,NA,SKIM-MILK,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC1
+IONMM10,Total,NA,FreezeThaw,PBS,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC1
+IONMM11,Total,NA,FreezeThaw,PBS,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC1
+IONMM12,Total,NA,FreezeThaw,PBS,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC1
+1.1,Total,NA,NA,MILK,N,UHT_NC,Bead_beating,NA,6.5_2min,NA,,,500ul_UHT_NC
+1.2,Total,NA,NA,MILK,N,UHT_NC,Bead_beating,NA,6.5_2min,NA,,,500ul_UHT_NC
+1.3,Total,NA,NA,MILK,N,UHT_NC,Bead_beating,NA,6.5_2min,NA,,,500ul_UHT_NC
+2.1,Total,NA,NA,MILK,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC1
+2.2,Total,NA,NA,MILK,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC1
+2.3,Total,NA,NA,MILK,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC1
+3.1,Total,NA,NA,MILK,N,Sample,Bead_beating,NA,6.5_1min,NA,,,BCMC1
+3.2,Total,NA,NA,MILK,N,Sample,Bead_beating,NA,6.5_1min,NA,,,BCMC1
+3.3,Total,NA,NA,MILK,N,Sample,Bead_beating,NA,6.5_1min,NA,,,BCMC1
+4.2,Total,NA,NA,MILK,N,Sample,Bead_beating,NA,3.5_2min,NA,,,BCMC1
+4.3,Total,NA,NA,MILK,N,Sample,Bead_beating,NA,3.5_2min,NA,,,BCMC1
+5.1,Total,NA,NA,MILK,N,Sample,Bead_beating,NA,3.5_2min,NA,,,BCMC1
+5.2,Total,NA,NA,MILK,N,Sample,Bead_beating,NA,3.5_1min,NA,,,BCMC1
+5.3,Total,NA,NA,MILK,N,Sample,Bead_beating,NA,3.5_1min,NA,,,BCMC1
+6.1,Total,NA,NA,MILK,N,Sample,Bead_beating,NA,NA,15min,,,BCMC1
+6.2,Total,NA,NA,MILK,N,Sample,Bead_beating,NA,NA,15min,,,BCMC1
+6.3,Total,NA,NA,MILK,N,Sample,Bead_beating,NA,NA,15min,,,BCMC1
+7.1,Total,NA,NA,MILK,N,Sample,Bead_beating,NA,NA,10min,,,BCMC1
+7.2,Total,NA,NA,MILK,N,Sample,Bead_beating,NA,NA,10min,,,BCMC1
+7.3,Total,NA,NA,MILK,N,Sample,Bead_beating,NA,NA,10min,,,BCMC1
+8.1,Total,NA,NA,MILK,N,Sample,Bead_beating,20min,NA,NA,,,BCMC1
+8.2,Total,NA,NA,MILK,N,Sample,Bead_beating,20min,NA,NA,,,BCMC1
+8.3,Total,NA,NA,MILK,N,Sample,Bead_beating,20min,NA,NA,,,BCMC1
+Theo1.1,NA,NA,NA,NA,N,Theoretical_value,Theoretical_value,NA,NA,NA,,,BCMC1
+Theo1.2,NA,NA,NA,NA,N,Theoretical_value,Theoretical_value,NA,NA,NA,,,BCMC1
+Theo1.3,NA,NA,NA,NA,N,Theoretical_value,Theoretical_value,NA,NA,NA,,,BCMC1
+10TB.1,Total,10mL,NA,MILK,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC2
+10TB.2,Total,10mL,NA,MILK,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC2
+10TB.3,Total,10mL,NA,MILK,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC2
+200TB.1,Total,200uL,NA,MILK,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC2
+200TB.2,Total,200uL,NA,MILK,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC2
+200TB.3,Total,200uL,NA,MILK,N,Sample,Bead_beating,NA,6.5_2min,NA,,,BCMC2
+10TV.1,Total,10mL,NA,MILK,N,Sample,Vortex,NA,NA,15min,,,BCMC2
+10TV.2,Total,10mL,NA,MILK,N,Sample,Vortex,NA,NA,15min,,,BCMC2
+10TV.3,Total,10mL,NA,MILK,N,Sample,Vortex,NA,NA,15min,,,BCMC2
+200TV.1,Total,200uL,NA,MILK,N,Sample,Vortex,NA,NA,15min,,,BCMC2
+200TV.2,Total,200uL,NA,MILK,N,Sample,Vortex,NA,NA,15min,,,BCMC2
+200TV.3,Total,200uL,NA,MILK,N,Sample,Vortex,NA,NA,15min,,,BCMC2
+10TC.1,Total,10mL,NA,MILK,N,Sample,Chemical,20min,NA,,,,BCMC2
+10TC.2,Total,10mL,NA,MILK,N,Sample,Chemical,20min,NA,,,,BCMC2
+10TC.3,Total,10mL,NA,MILK,N,Sample,Chemical,20min,NA,,,,BCMC2
+200TC.1,Total,200uL,NA,MILK,N,Sample,Chemical,20min,NA,,,,BCMC2
+200TC.2,Total,200uL,NA,MILK,N,Sample,Chemical,20min,NA,,,,BCMC2
+200TC.3,Total,200uL,NA,MILK,N,Sample,Chemical,20min,NA,,,,BCMC2
+10CB.1,Core,10mL,NA,MILK,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+10CB.2,Core,10mL,NA,MILK,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+10CB.3,Core,10mL,NA,MILK,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+200CB.1,Core,200uL,NA,MILK,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+200CB.2,Core,200uL,NA,MILK,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+200CB.3,Core,200uL,NA,MILK,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+10CV.1,Core,10mL,NA,MILK,N,Sample,Vortex,,,15min,,,BCMC2
+10CV.2,Core,10mL,NA,MILK,N,Sample,Vortex,,,15min,,,BCMC2
+10CV.3,Core,10mL,NA,MILK,N,Sample,Vortex,,,15min,,,BCMC2
+200CV.1,Core,200uL,NA,MILK,N,Sample,Vortex,,,15min,,,BCMC2
+200CV.2,Core,200uL,NA,MILK,N,Sample,Vortex,,,15min,,,BCMC2
+200CV.3,Core,200uL,NA,MILK,N,Sample,Vortex,,,15min,,,BCMC2
+10CC.1,Core,10mL,NA,MILK,N,Sample,Chemical,20min,,,,,BCMC2
+10CC.2,Core,10mL,NA,MILK,N,Sample,Chemical,20min,,,,,BCMC2
+10CC.3,Core,10mL,NA,MILK,N,Sample,Chemical,20min,,,,,BCMC2
+200CC.1,Core,200uL,NA,MILK,N,Sample,Chemical,20min,,,,,BCMC2
+200CC.2,Core,200uL,NA,MILK,N,Sample,Chemical,20min,,,,,BCMC2
+200CC.3,Core,200uL,NA,MILK,N,Sample,Chemical,20min,,,,,BCMC2
+10UB.1,Ultra2,10mL,NA,MILK,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+10UB.2,Ultra2,10mL,NA,MILK,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+10UB.3,Ultra2,10mL,NA,MILK,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+200UB.1,Ultra2,200uL,NA,MILK,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+200UB.2,Ultra2,200uL,NA,MILK,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+200UB.3,Ultra2,200uL,NA,MILK,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+10UV.1,Ultra2,10mL,NA,MILK,N,Sample,Vortex,,,15min,,,BCMC2
+10UV.2,Ultra2,10mL,NA,MILK,N,Sample,Vortex,,,15min,,,BCMC2
+10UV.3,Ultra2,10mL,NA,MILK,N,Sample,Vortex,,,15min,,,BCMC2
+200UV.1,Ultra2,200uL,NA,MILK,N,Sample,Vortex,,,15min,,,BCMC2
+200UV.2,Ultra2,200uL,NA,MILK,N,Sample,Vortex,,,15min,,,BCMC2
+200UV.3,Ultra2,200uL,NA,MILK,N,Sample,Vortex,,,15min,,,BCMC2
+10UC.1,Ultra2,10mL,NA,MILK,N,Sample,Chemical,20min,,,,,BCMC2
+10UC.2,Ultra2,10mL,NA,MILK,N,Sample,Chemical,20min,,,,,BCMC2
+10UC.3,Ultra2,10mL,NA,MILK,N,Sample,Chemical,20min,,,,,BCMC2
+200UC.1,Ultra2,200uL,NA,MILK,N,Sample,Chemical,20min,,,,,BCMC2
+200UC.2,Ultra2,200uL,NA,MILK,N,Sample,Chemical,20min,,,,,BCMC2
+200UC.3,Ultra2,200uL,NA,MILK,N,Sample,Chemical,20min,,,,,BCMC2
+1UC.1,Ultra2,1mL,NA,MILK,N,Sample,Chemical,20min,,,,,BCMC2
+1UC.2,Ultra2,1mL,NA,MILK,N,Sample,Chemical,20min,,,,,BCMC2
+1UC.3,Ultra2,1mL,NA,MILK,N,Sample,Chemical,20min,,,,,BCMC2
+1UC.4,Ultra2,1mL,NA,MILK,N,Sample,Chemical,20min,,,,,BCMC2
+1UC.5,Ultra2,1mL,NA,MILK,N,Sample,Chemical,20min,,,,,BCMC2
+1CC.1,Core,1mL,NA,MILK,N,Sample,Chemical,20min,,,,,BCMC2
+1CC.2,Core,1mL,NA,MILK,N,Sample,Chemical,20min,,,,,BCMC2
+1CC.4,Core,1mL,NA,MILK,N,Sample,Chemical,20min,,,,,BCMC2
+1CC.5,Core,1mL,NA,MILK,N,Sample,Chemical,20min,,,,,BCMC2
+MC.10ml.UHT.1,Total,10ml,NA,MILK,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+MC.10ml.UHT.2,Total,10ml,NA,MILK,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+MC.10ml.UHT.3,Total,10ml,NA,MILK,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+MC.1ml.UHT.1,Total,1ml,NA,MILK,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+MC.1ml.UHT.2,Total,1ml,NA,MILK,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+MC.1ml.UHT.3,Total,1ml,NA,MILK,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+MC.25.glycerol.1,Total,NA,glycerol,glycerol,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+MC.25.glycerol.2,Total,NA,glycerol,glycerol,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+MC.25.glycerol.3,Total,NA,glycerol,glycerol,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+MC.30ml.UHT.1,Total,30ml,NA,MILK,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+MC.30ml.UHT.2,Total,30ml,NA,MILK,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+MC.30ml.UHT.3,Total,30ml,NA,MILK,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+MC.50.1,Total,30ml,NA,NA,Y,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+MC.50.2,Total,30ml,NA,NA,Y,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+MC.50.3,Total,30ml,NA,NA,Y,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+MC.50.control.1,Total,NA,NA,NA,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+MC.dead.1,Total,30ml,NA,NA,Y,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+MC.dead.2,Total,30ml,NA,NA,Y,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+MC.dead.3,Total,30ml,NA,NA,Y,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+MC.dead.control.1,Total,NA,NA,NA,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+MC.live.1,Total,30ml,NA,NA,Y,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+Mc.live.2,Total,30ml,NA,NA,Y,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+MC.live.3,Total,30ml,NA,NA,Y,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+MC.live.control.1,Total,NA,NA,NA,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+MC.PBS.1,Total,30ml,NA,NA,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+MC.PBS.2,Total,30ml,NA,NA,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+MC.PBS.3,Total,30ml,NA,NA,N,Sample,Bead_beating,,6.5_2min,,,,BCMC2
+Theo2.1,NA,NA,NA,NA,N,Sample,Theoretical_value,NA,NA,NA,,,BCMC2
+Theo2.2,NA,NA,NA,NA,N,Sample,Theoretical_value,NA,NA,NA,,,BCMC2
+Theo2.3,NA,NA,NA,NA,N,Sample,Theoretical_value,NA,NA,NA,,,BCMC2
+10TB.NC,Total,10mL_NC,NA,MILK,N,UHT_NC,Bead_beating,,6.5_2min,,,,10ml_UHT_NC
+10TV.NC,Total,10mL_NC,NA,MILK,N,UHT_NC,Vortex,,,15min,,,10ml_UHT_NC
+10TC.NC,Total,10mL_NC,NA,MILK,N,UHT_NC,Chemical,20min,,,,,10ml_UHT_NC
+10CB.NC,Core,10mL_NC,NA,MILK,N,UHT_NC,Bead_beating,,6.5_2min,,,,10ml_UHT_NC
+10CV.NC,Core,10mL_NC,NA,MILK,N,UHT_NC,Vortex,,,15min,,,10ml_UHT_NC
+10CC.NC,Core,10mL_NC,NA,MILK,N,UHT_NC,Chemical,20min,,,,,10ml_UHT_NC
+10UB.NC,Ultra2,10mL_NC,NA,MILK,N,UHT_NC,Bead_beating,,6.5_2min,,,,10ml_UHT_NC
+10UV.NC,Ultra2,10mL_NC,NA,MILK,N,UHT_NC,Vortex,,,15min,,,10ml_UHT_NC
+10UC.NC,Ultra2,10mL_NC,NA,MILK,N,UHT_NC,Chemical,20min,,,,,10ml_UHT_NC
+1CC.NC,Core,1mL_NC,NA,MILK,N,UHT_NC,Chemical,20min,,,,,1ml_UHT_NC
+milliQ.1,Total,NA,NA,NA,N,RunNC,Bead_beating,,6.5_2min,,,,RunNC
+milliQ.2,Total,NA,NA,NA,N,RunNC,Bead_beating,,6.5_2min,,,,RunNC
+M4R1,Total,10ml,,glycerol,N,Sample,Bead_beating,,4_10s,,Rnase_ammonium_acetate,,
+M4R2,Total,10ml,,glycerol,N,Sample,Bead_beating,,4_10s,,Rnase_ammonium_acetate,,
+M4R3,Total,10ml,,glycerol,N,Sample,Bead_beating,,4_10s,,Rnase_ammonium_acetate,,
+M4W1,Total,10ml,,glycerol,N,Sample,Bead_beating,,4_10s,,,,
+M4W2,Total,10ml,,glycerol,N,Sample,Bead_beating,,4_10s,,,,
+M4W3,Total,10ml,,glycerol,N,Sample,Bead_beating,,4_10s,,,,
+ML4R1,Total,10ml,,glycerol,N,Sample,Chemical_Bead_beating,60min,4_10s,,Rnase_ammonium_acetate,,
+ML4R2,Total,10ml,,glycerol,N,Sample,Chemical_Bead_beating,60min,4_10s,,Rnase_ammonium_acetate,,
+ML4R3,Total,10ml,,glycerol,N,Sample,Chemical_Bead_beating,60min,4_10s,,Rnase_ammonium_acetate,,
+ML4W1,Total,10ml,,glycerol,N,Sample,Chemical_Bead_beating,60min,4_10s,,,,
+ML4W2,Total,10ml,,glycerol,N,Sample,Chemical_Bead_beating,60min,4_10s,,,,
+ML4W3,Total,10ml,,glycerol,N,Sample,Chemical_Bead_beating,60min,4_10s,,,,
+MLVR1,Total,10ml,,glycerol,N,Sample,Chemical_Vortex,60min,,30s,Rnase_ammonium_acetate,,
+MLVR2,Total,10ml,,glycerol,N,Sample,Chemical_Vortex,60min,,30s,Rnase_ammonium_acetate,,
+MLVR3,Total,10ml,,glycerol,N,Sample,Chemical_Vortex,60min,,30s,Rnase_ammonium_acetate,,
+MLVW1,Total,10ml,,glycerol,N,Sample,Chemical_Vortex,60min,,30s,,,
+MLVW2,Total,10ml,,glycerol,N,Sample,Chemical_Vortex,60min,,30s,,,
+MLVW3,Total,10ml,,glycerol,N,Sample,Chemical_Vortex,60min,,30s,,,
+MVR1,Total,10ml,,glycerol,N,Sample,Vortex,,,30s,Rnase_ammonium_acetate,,
+MVR2,Total,10ml,,glycerol,N,Sample,Vortex,,,30s,Rnase_ammonium_acetate,,
+MVR3,Total,10ml,,glycerol,N,Sample,Vortex,,,30s,Rnase_ammonium_acetate,,
+MVW1,Total,10ml,,glycerol,N,Sample,Vortex,,,30s,,,
+MVW2,Total,10ml,,glycerol,N,Sample,Vortex,,,30s,,,
+MVW3,Total,10ml,,glycerol,N,Sample,Vortex,,,30s,,,
+P4R1,Microbiome,10ml,,glycerol,N,Sample,Bead_beating,,4_10s,,Rnase_ammonium_acetate,Proteinase K,
+P4R2,Microbiome,10ml,,glycerol,N,Sample,Bead_beating,,4_10s,,Rnase_ammonium_acetate,Proteinase K,
+P4R3,Microbiome,10ml,,glycerol,N,Sample,Bead_beating,,4_10s,,Rnase_ammonium_acetate,Proteinase K,
+P4W1,Microbiome,10ml,,glycerol,N,Sample,Bead_beating,,4_10s,,,Proteinase K,
+P4W2,Microbiome,10ml,,glycerol,N,Sample,Bead_beating,,4_10s,,,Proteinase K,
+P4W3,Microbiome,10ml,,glycerol,N,Sample,Bead_beating,,4_10s,,,Proteinase K,
+PL4R1,Microbiome,10ml,,glycerol,N,Sample,Chemical_Bead_beating,60min,4_10s,,Rnase_ammonium_acetate,Proteinase K,
+PL4R2,Microbiome,10ml,,glycerol,N,Sample,Chemical_Bead_beating,60min,4_10s,,Rnase_ammonium_acetate,Proteinase K,
+PL4R3,Microbiome,10ml,,glycerol,N,Sample,Chemical_Bead_beating,60min,4_10s,,Rnase_ammonium_acetate,Proteinase K,
+PL4W1,Microbiome,10ml,,glycerol,N,Sample,Chemical_Bead_beating,60min,4_10s,,,Proteinase K,
+PL4W2,Microbiome,10ml,,glycerol,N,Sample,Chemical_Bead_beating,60min,4_10s,,,Proteinase K,
+PL4W3,Microbiome,10ml,,glycerol,N,Sample,Chemical_Bead_beating,60min,4_10s,,,Proteinase K,
+PLVR1,Microbiome,10ml,,glycerol,N,Sample,Chemical_Vortex,60min,,30s,Rnase_ammonium_acetate,Proteinase K,
+PLVR2,Microbiome,10ml,,glycerol,N,Sample,Chemical_Vortex,60min,,30s,Rnase_ammonium_acetate,Proteinase K,
+PLVR3,Microbiome,10ml,,glycerol,N,Sample,Chemical_Vortex,60min,,30s,Rnase_ammonium_acetate,Proteinase K,
+PLVW1,Microbiome,10ml,,glycerol,N,Sample,Chemical_Vortex,60min,,30s,,Proteinase K,
+PLVW2,Microbiome,10ml,,glycerol,N,Sample,Chemical_Vortex,60min,,30s,,Proteinase K,
+PLVW3,Microbiome,10ml,,glycerol,N,Sample,Chemical_Vortex,60min,,30s,,Proteinase K,
+PVR1,Microbiome,10ml,,glycerol,N,Sample,Vortex,,,30s,Rnase_ammonium_acetate,Proteinase K,
+PVR2,Microbiome,10ml,,glycerol,N,Sample,Vortex,,,30s,Rnase_ammonium_acetate,Proteinase K,
+PVR3,Microbiome,10ml,,glycerol,N,Sample,Vortex,,,30s,Rnase_ammonium_acetate,Proteinase K,
+PVW1,Microbiome,10ml,,glycerol,N,Sample,Vortex,,,30s,,Proteinase K,
+PVW2,Microbiome,10ml,,glycerol,N,Sample,Vortex,,,30s,,Proteinase K,
+PVW3,Microbiome,10ml,,glycerol,N,Sample,Vortex,,,30s,,Proteinase K,
+NC1,,,,,,RunNC,,,,,,,
+NC2,,,,,,RunNC,,,,,,,
+NC3,,,,,,RunNC,,,,,,,

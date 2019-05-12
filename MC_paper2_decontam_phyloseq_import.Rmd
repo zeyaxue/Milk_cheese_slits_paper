@@ -1,14 +1,18 @@
 ---
 title: "MC_paper2_phyloseq_import"
-author: "Zeya Zhengyao Xue"
+author: "Zeya Xue"
 date: "January 14, 2019"
 output: rmarkdown::github_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(fig.path = "figs/")
 ```
+
+Written by Zhengyao "Zeya" Xue, [ORCID](https://orcid.org/0000-0002-4930-8212)
 
 This file follows the analysis in QIIME2, which imports mapping file, feature table,
 taxonomy and tree as a 4-component phyloseq object. 
@@ -24,8 +28,7 @@ library(cowplot);packageVersion("cowplot")
 library(superheat)
 library(plyr)
 library(dplyr)
-
-path <- "~/Google Drive File Stream/My Drive/UC_Davis/Marco_lab/milk_microbiota/Mock_community/MC_paper2_QIIME2/"
+library(DESeq2)
 ```
 
 
@@ -35,23 +38,23 @@ path <- "~/Google Drive File Stream/My Drive/UC_Davis/Marco_lab/milk_microbiota/
 # Transpose the QIIME2 output in excel
 # For the theoretical values, I can adjust its absolute reads to suit data set by
 # changing values in the feature table
-SeqTab <- read.table(file.path(path, "feature_table/5file-combined_table-dada2-mc2.txt"), header = TRUE, stringsAsFactors = FALSE)
+SeqTab <- read.table(file.path("data/5file-combined_table-dada2-mc2.txt"), header = TRUE, stringsAsFactors = FALSE)
 colnames(SeqTab) <- gsub("X","",colnames(SeqTab))
 row.names(SeqTab) <- SeqTab$OTUID
 SeqTab <- SeqTab[,-1]
 SeqTab <- as.matrix.data.frame(SeqTab)
 
 # Read in metadata file
-samdf <- read.csv(file.path(path,"mapping/5file-MC_paper2_samdf.csv"))
+samdf <- read.csv(file.path("data/5file-MC_paper2_samdf.csv"))
 rownames(samdf) <- samdf$SampleID
 
 # Read in exported rooted tree 
-tree <- read_tree(file.path(path,"5file-tree.nwk"))
+tree <- read_tree(file.path("data/5file-tree.nwk"))
 
 # Parse out taxonomic assignment in excel and remove confidence column
 # keep only taxa included in the "feature-table-mc2.csv" file
 # Species column removed
-TaxTab <- read.table(file.path(path,"5file-taxonomy-mc2.tsv"), header = TRUE, sep = '\t', na.strings = NA)
+TaxTab <- read.table(file.path("data/5file-taxonomy-mc2.tsv"), header = TRUE, sep = '\t', na.strings = NA)
 rownames(TaxTab) <- TaxTab$FeatureID
 TaxTab <- TaxTab[,-1]
 TaxTab <- as.matrix.data.frame(TaxTab)
@@ -63,7 +66,6 @@ ps # 1052 taxa and 212 samples
 # Filter out singleton
 ps <- filter_taxa(ps, function (x) {sum(x > 0) > 1}, prune=TRUE)
 ps # 1049 taxa and 212 samples
-write.csv(ps@otu_table, file.path(path,"feature_table/5file-feature-table-mc2.csv"))
 ```
 
 
@@ -106,7 +108,6 @@ row.names(coryTaxa) <- "fef753d7cbf02a6a16969e449c156909"
 keepTaxa <- rbind(keepTaxa, coryTaxa)
 ps.Phy05 <- prune_taxa(row.names(keepTaxa), ps.Phy)
 ps.Phy05 # 198 taxa and 212 samples
-write.csv(ps.Phy05@otu_table, file.path(path,"feature_table/5file-feature-table-mc205.csv"))
 ```
 
 
@@ -114,7 +115,7 @@ write.csv(ps.Phy05@otu_table, file.path(path,"feature_table/5file-feature-table-
 ```{r}
 set.seed(123)
 # Read in function to calculate alpha diversity and rarefaction levels
-calculate_rarefaction_curves <-dget(file.path("~/src/Marco_Lab/FUN_calculate_rarefaction.R"))
+calculate_rarefaction_curves <-dget(file.path("function/FUN_calculate_rarefaction.R"))
 
 rarefaction_curve_data <- calculate_rarefaction_curves(ps.Phy05, c("Observed", "Shannon","Simpson"), 
                                                        rep(c(1, 2500, 5000, 7500, 10000), each = 10))
@@ -140,11 +141,6 @@ ggplot(rarefaction_curve_data_summary_verbose, aes(x = Depth, y = Alpha_diversit
   geom_pointrange(size=0.1)+
   theme(legend.position="none") + #  remove legend
   facet_wrap(facets = ~ measures, scales = "free")
-# export the library size to a csv file
-write.csv(sample_sums(ps.Phy05), file.path(path, "mapping/library_size_ps.Phy05_5file.csv"))
-
-# The diversity leveled out after 2500 seqs per sample, rarefy at 3990
-# to keep the sample with the fewest reads that is no a NC (MC.50.2)
 ```
 
 
@@ -153,7 +149,7 @@ write.csv(sample_sums(ps.Phy05), file.path(path, "mapping/library_size_ps.Phy05_
 ```{r include=FALSE}
 # Clean up the taxonomy level
 #make the deepest taxonomic identification in TaxTab as the recommened taxonomy (REC)
-RECps <- dget("~/src/Marco_Lab/FUN_RECps.R") # Read in RECps function
+RECps <- dget("function/FUN_RECps.R") # Read in RECps function
 ps.Phy.REC <- RECps(ps.Phy05@tax_table, ps.Phy05)
 ps.Phy.REC # 198 taxa and 212 samples
 ps.REC.glom <- tax_glom(ps.Phy.REC, taxrank = "REC", NArm = FALSE)
@@ -174,35 +170,35 @@ FeatTab <- function(ps){
 
 
 # 1. DNA extraction lysis method using the Total kit; BCMC1
-samdf1 <- read.csv(file.path(path, "mapping/MC_paper2_samdf_BCMC1_total_lyse.csv"))
+samdf1 <- read.csv(file.path("data/MC_paper2_samdf_BCMC1_total_lyse.csv"))
 row.names(samdf1) <- samdf1$SampleID
 
 # 2. DNA extraction kit with MoBio
-samdf2 <- read.csv(file.path(path, "mapping/MC_paper2_samdf_BCMC1_MoBio.csv"))
+samdf2 <- read.csv(file.path("data/MC_paper2_samdf_BCMC1_MoBio.csv"))
 row.names(samdf2) <- samdf2$SampleID
 
 # 3. DNA extraction kit choice on 10 ml UHT milk; BCMC2
-samdf3 <- read.csv(file.path(path, "mapping/MC_paper2_samdf_BCMC2_kit_10ml.csv"))
+samdf3 <- read.csv(file.path("data/MC_paper2_samdf_BCMC2_kit_10ml.csv"))
 row.names(samdf3) <- samdf3$SampleID
 
 # 4. PMA treatment
-samdf4 <- read.csv(file.path(path, "mapping/MC_paper2_samdf_PMA.csv"))
+samdf4 <- read.csv(file.path("data/MC_paper2_samdf_PMA.csv")) 
 row.names(samdf4) <- samdf4$SampleID
 
 # 5. Sample storage
-samdf5 <- read.csv(file.path(path, "mapping/MC_paper2_samdf_sample_storage.csv"))
+samdf5 <- read.csv(file.path("data/MC_paper2_samdf_sample_storage.csv"))
 row.names(samdf5) <- samdf5$SampleID
 
 # 6. Sample Volume
-samdf6 <- read.csv(file.path(path, "mapping/MC_paper2_samdf_total_vol.csv"))
+samdf6 <- read.csv(file.path("data/MC_paper2_samdf_total_vol.csv"))
 row.names(samdf6) <- samdf6$SampleID
 
 # 7. phase 3 kit, cleanup and lysing method 
-samdf7 <- read.csv(file.path(path, "mapping/phase3_samdf.csv"))
+samdf7 <- read.csv(file.path("data/phase3_samdf.csv"))
 row.names(samdf7) <- samdf7$SampleID
 
 # 8. UHT milk negative control
-samdf8 <- read.csv(file.path(path, "mapping/MC_paper2_mapping_UHT.csv"))
+samdf8 <- read.csv(file.path("data/MC_paper2_mapping_UHT.csv"))
 row.names(samdf8) <- samdf8$SampleID
 
 # create ps list with all phyloseq objects and transform to relative proportions
@@ -216,29 +212,11 @@ for (i in 1:8){
                           tax_table(ps.REC.glom), phy_tree(ps.REC.glom))
   print(psList[[i]] )
 }
-
-# use the function to write feature table lists and write out csv
-AveFeatTab.list <- lapply(psList, AveFeatTab)
-names(AveFeatTab.list) <- c(1:8)
-mapply(write.csv, AveFeatTab.list, 
-       file = paste0(path, "feature_table/AveFeatTab_", names(AveFeatTab.list), ".csv"))
-
-FeatTab.list <- lapply(psList, FeatTab)
-names(FeatTab.list) <- c(1:8)
-mapply(write.csv, FeatTab.list, file = paste0(path, "feature_table/FeatTab_", names(FeatTab.list), ".csv"))
-
-# 9. RNase and ammonium acetate control sequenced in March 2019 run
-## Did not have enough reads to proceed with this 
-
-# 10. Milk sample 
-ps.milk <- readRDS(file.path(path, "ps.milk.rds"))
-ps.milk # 23 taxa and 10 samples
-FeatTab(ps.milk) %>% write.csv(file.path(path,"feature_table/FeatTab_milk.csv"))
 ```
 
 #### Taxonomy bar plot for individual values
 ```{r}
-TaxBar <- function(ps, var1, var2, lvl = NULL, lvl2 = NULL, w, h, path.out){
+TaxBar <- function(ps, var1, var2, lvl = NULL, lvl2 = NULL){
   ExpTaxa <- c("Bacillaceae","Bacillus","Corynebacterium","Clostridiaceae",
                "Clostridium","Enterococcus","Escherichia","Lactococcus",
                "Pseudomonas","Staphylococcus","Streptococcus") 
@@ -270,7 +248,7 @@ TaxBar <- function(ps, var1, var2, lvl = NULL, lvl2 = NULL, w, h, path.out){
   if (!is.null(lvl)) TaxTab2_agg[[var1]] <- factor(TaxTab2_agg[[var1]], levels = lvl)
   if (!is.null(lvl2)) TaxTab2_agg[[var2]] <- factor(TaxTab2_agg[[var2]], levels = lvl2)
   
-  pdf(path.out, width = w, height = h)
+  
   p <- ggplot(TaxTab2_agg, aes(x = get(var1), y = Abundance, fill = REC)) +
     facet_grid(. ~ get(var2), scales = "free_x") + 
     geom_bar(stat = "identity") + 
@@ -293,7 +271,6 @@ TaxBar <- function(ps, var1, var2, lvl = NULL, lvl2 = NULL, w, h, path.out){
   gp$widths[facet.columns] <- gp$widths[facet.columns] * x.var
   # plot result
   grid::grid.draw(gp)
-  dev.off()
 }
 
 
@@ -302,12 +279,10 @@ TaxBar <- function(ps, var1, var2, lvl = NULL, lvl2 = NULL, w, h, path.out){
 ps1.merge <- merge_samples(psList[[1]], "For_AVE", fun = mean)
 ## Repair the merged values associated with each surface after merge
 sample_data(ps1.merge)$For_AVE <- levels(sample_data(psList[[1]])$For_AVE)
-TaxBar(ps1.merge,
-       var1 = "For_AVE", var2 = "Description",
+TaxBar(ps1.merge, var1 = "For_AVE", var2 = "Description",
        lvl = c("Expected","Bead_beating_6.5_2min","Bead_beating_6.5_1min",
                "Bead_beating_3.5_2min","Bead_beating_3.5_1min",
-               "Vortex_15min","Vortex_10min","Chemical_20min"),
-       path.out = file.path(path, "feature_table/ps1_For_AVE.pdf"),w = 5,h = 4)
+               "Vortex_15min","Vortex_10min","Chemical_20min"))
 
 
 # Plot for AVERAGE PMA (ps3)
@@ -318,12 +293,10 @@ sample_data(ps3.merge)$For_AVE <- levels(sample_data(psList[[3]])$For_AVE)
 ## Fix Lysis with every 3rd row 
 sample_data(ps3.merge)$Lysis <- sample_data(psList[[3]])[seq(1, nrow(sample_data(psList[[3]])), 3), ]$Lysis
 sample_data(ps3.merge)$KIT <- sample_data(psList[[3]])[seq(3, nrow(sample_data(psList[[3]])), 3), ]$KIT
-TaxBar(ps3.merge,
-       var1 = "For_AVE", var2 = "SampleID",
+TaxBar(ps3.merge, var1 = "For_AVE", var2 = "SampleID",
        lvl = c("Expected","Total_Bead_beating_6.5_2min","Total_Vortex_NA","Total_Chemical_NA",
                "Core_Bead_beating_6.5_2min","Core_Vortex_","Core_Chemical_",
-               "Ultra2_Bead_beating_6.5_2min","Ultra2_Vortex_","Ultra2_Chemical_"),
-       path.out = file.path(path, "feature_table/ps3_For_AVE.pdf"),4.5,5.5)
+               "Ultra2_Bead_beating_6.5_2min","Ultra2_Vortex_","Ultra2_Chemical_"))
 
 
 # Plot for PMA (ps4)
@@ -332,8 +305,7 @@ TaxBar(subset_samples(psList[[4]], SampleID != "Theo2.2" & SampleID != "Theo2.3"
        lvl = c("Theo2.1", "MC.50.control.1","MC.live.control.1","MC.dead.control.1",
                "MC.live.1","Mc.live.2","MC.live.3","MC.50.1","MC.50.2","MC.50.3",
                "MC.dead.1","MC.dead.2","MC.dead.3"),
-       lvl2 = c("Expected","Untreated","Live","Half","Dead"),
-       path.out = file.path(path, "feature_table/ps4_SampleID_For_AVE.pdf"),7,5)
+       lvl2 = c("Expected","Untreated","Live","Half","Dead"))
 # Plot for AVERAGE PMA (ps4)
 ## Take average of samples by catergory "For_AVE"
 ps4.merge <- merge_samples(psList[[4]], "For_AVE", fun = mean)
@@ -341,8 +313,7 @@ ps4.merge <- merge_samples(psList[[4]], "For_AVE", fun = mean)
 sample_data(ps4.merge)$For_AVE <- levels(sample_data(psList[[4]])$For_AVE)
 TaxBar(ps4.merge,
        var1 = "For_AVE", var2 = "SampleID",
-       lvl = c("Expected","Untreated","Live","Half","Dead"),
-       path.out = file.path(path, "feature_table/ps4_For_AVE.pdf"),4.5,5.5)
+       lvl = c("Expected","Untreated","Live","Half","Dead"))
 
 # Plot for sample storage conditions (ps5)
 ## BCMC2
@@ -352,8 +323,7 @@ TaxBar(subset_samples(psList[[5]], For_AVE %in% c("Glycerol","PBS2","Expected2")
        lvl = c("Theo2.1","Theo2.2","Theo2.3",
                "MC.PBS.1","MC.PBS.2","MC.PBS.3",
                "MC.25.glycerol.1","MC.25.glycerol.2","MC.25.glycerol.3"), 
-       lvl2 = c("Expected2","PBS2", "Glycerol"),
-       path.out = file.path(path, "feature_table/ps5_SampleID_For_AVE.pdf"), 5, 5)
+       lvl2 = c("Expected2","PBS2", "Glycerol"))
 ## BCMC1
 TaxBar(subset_samples(psList[[5]], For_AVE %in% c("Fresh","Freeze_Thaw","Expected1")),  
        # subset to include only BCMC1 samples 
@@ -361,8 +331,7 @@ TaxBar(subset_samples(psList[[5]], For_AVE %in% c("Fresh","Freeze_Thaw","Expecte
        lvl = c("Theo1.1","Theo1.2","Theo1.3",
                "IONMM1","IONMM2","IONMM3",
                "IONMM10","IONMM11","IONMM12"), 
-       lvl2 = c("Expected1","Fresh", "Freeze_Thaw"),
-       path.out = file.path(path, "feature_table/ps5_BCMC1_SampleID_For_AVE.pdf"), 5, 5)
+       lvl2 = c("Expected1","Fresh", "Freeze_Thaw"))
 
 # Plot for milk volumne collection (ps6)
 TaxBar(subset_samples(psList[[6]], SampleID != "Theo2.2" & SampleID != "Theo2.3" &  
@@ -373,21 +342,18 @@ TaxBar(subset_samples(psList[[6]], SampleID != "Theo2.2" & SampleID != "Theo2.3"
        lvl = c("Theo2.1","MC.30ml.UHT.1","MC.30ml.UHT.2","MC.30ml.UHT.3",
                "MC.10ml.UHT.1","MC.10ml.UHT.2","MC.10ml.UHT.3",
                "MC.1ml.UHT.1","MC.1ml.UHT.2","MC.1ml.UHT.3","200TB.1","200TB.2","200TB.3"),
-       lvl2 = c("Expected","30ml","10ml","1ml","200uL"),
-       path.out = file.path(path, "feature_table/ps6_SampleID_For_AVE.pdf"),7.5,5)
+       lvl2 = c("Expected","30ml","10ml","1ml","200uL"))
 
 # Plot for cell lysis (phase3, gentle DNA lysis) (ps7)
 # Read in sample ID order 
-lvl.ID <- read.csv(file.path(path, "mapping/phase3_sample_orders.csv"), header = FALSE) 
+lvl.ID <- read.csv(file.path("data/phase3_sample_orders.csv"), header = FALSE) 
 lvl.ID$V1 <- as.character(lvl.ID$V1)
-TaxBar(psList[[7]], var1 = "SampleID", var2 = "Kit", lvl = lvl.ID$V1,
-       path.out = file.path(path,"feature_table/ps7_SampleID_Kit.pdf"), w = 9, h = 5)
+TaxBar(psList[[7]], var1 = "SampleID", var2 = "Kit", lvl = lvl.ID$V1)
 TaxBar(psList[[7]], var1 = "SampleID", var2 = "Lysis", lvl = lvl.ID$V1, 
        lvl2 = c("Expected", "Bead beat: 2min x 6.5m/s", "Vortex: 15min", 
                 "Chemical: 1hr", "Bead beat: 10s x 4m/s",
                 "Chemical + Bead beat: 1hr + 10s x 4m/s",
-                "Vortex: 30s", "Chemical + Vortex: 1hr + 30s "),
-       path.out = file.path(path,"feature_table/ps7_SampleID_Lysis.pdf"), w = 9, h = 5)
+                "Vortex: 30s", "Chemical + Vortex: 1hr + 30s "))
 # Plot for ps7 average 
 ps7.merge <- merge_samples(psList[[7]], "For_AVE", fun = mean)
 sample_data(ps7.merge)$For_AVE <- levels(sample_data(psList[[7]])$For_AVE)
@@ -406,8 +372,7 @@ TaxBar(ps7.merge, var1 = "For_AVE", var2 = "Lysis",
        lvl2 = c("Expected", "Bead beat: 2min x 6.5m/s", "Vortex: 15min", 
                 "Chemical: 1hr", "Bead beat: 10s x 4m/s",
                 "Chemical + Bead beat: 1hr + 10s x 4m/s",
-                "Vortex: 30s", "Chemical + Vortex: 1hr + 30s "),
-       path.out = file.path(path,"feature_table/ps7_For_AVE_Lysis.pdf"), w = 9, h = 5)
+                "Vortex: 30s", "Chemical + Vortex: 1hr + 30s "))
 TaxBar(ps7.merge, var1 = "For_AVE", var2 = "Kit", 
        lvl = c("Expected","Total_Bead_beating_","Total_Bead_beating_Rnase_ammonium_acetate",
                "Total_Chemical_Bead_beating_","Total_Chemical_Bead_beating_Rnase_ammonium_acetate",
@@ -417,15 +382,14 @@ TaxBar(ps7.merge, var1 = "For_AVE", var2 = "Kit",
                "Microbiome_Chemical_Bead_beating_","Microbiome_Chemical_Bead_beating_Rnase_ammonium_acetate",
                "Microbiome_Vortex_","Microbiome_Vortex_Rnase_ammonium_acetate",
                "Microbiome_Chemical_Vortex_","Microbiome_Chemical_Vortex_Rnase_ammonium_acetate"), 
-       lvl2 = c("Expected", "Total_phase3", "Total_ProteinaseK"),
-       path.out = file.path(path,"feature_table/ps7_For_AVE_Kit.pdf"), w = 8, h = 5.5)
+       lvl2 = c("Expected", "Total_phase3", "Total_ProteinaseK"))
 ```
 
 
 #### Taxonomy dot plot 
 The size of the dot is dependent on the relative proportion
 ```{r}
-TaxDot <- function(ps, var1, var2, lvl = NULL, lvl2 = NULL, path.out, w, h) {
+TaxDot <- function(ps, var1, var2, lvl = NULL, lvl2 = NULL) {
   ExpTaxa <- c("Bacillaceae","Bacillus","Corynebacterium","Clostridiaceae",
                "Clostridium","Enterococcus","Escherichia","Lactococcus",
                "Pseudomonas","Staphylococcus","Streptococcus") 
@@ -456,7 +420,7 @@ TaxDot <- function(ps, var1, var2, lvl = NULL, lvl2 = NULL, path.out, w, h) {
   # Set color scale
   colors = c("#8c510a", "#f6e8c3", "#01665e")
 
-  pdf(path.out, width = w, height = h)
+  
   print(ggplot(TaxTab2_agg, aes(x = get(var1), y = REC)) +
           geom_point(aes(size = Abundance, color = Abundance)) +
           scale_size(range = c(2, 8))+
@@ -466,7 +430,6 @@ TaxDot <- function(ps, var1, var2, lvl = NULL, lvl2 = NULL, path.out, w, h) {
           facet_grid(. ~ get(var2), scales = "free_x") + 
           theme_bw(base_size = 15)+
           theme(axis.text.x = element_text(angle = 45, hjust = 1))) 
-  dev.off()
 }
 
 TaxDot(ps7.merge, var1 = "For_AVE", var2 = "Kit", 
@@ -478,15 +441,14 @@ TaxDot(ps7.merge, var1 = "For_AVE", var2 = "Kit",
                "Microbiome_Chemical_Bead_beating_","Microbiome_Chemical_Bead_beating_Rnase_ammonium_acetate",
                "Microbiome_Vortex_","Microbiome_Vortex_Rnase_ammonium_acetate",
                "Microbiome_Chemical_Vortex_","Microbiome_Chemical_Vortex_Rnase_ammonium_acetate"),
-       lvl2 = c("Expected", "Total_phase3", "Total_ProteinaseK"),
-       path.out = file.path(path,"feature_table/DotPlot/ps7_For_AVE_Kit.pdf"), w = 11, h = 8)
+       lvl2 = c("Expected", "Total_phase3", "Total_ProteinaseK"))
 ```
 
 
 #### Fold change analysis compared to the expected 
 ```{r}
 # relative abundance = (taxa - exp)/exp
-FoldDot <- function(ps, var1, var2, lvl = NULL, lvl2 = NULL, w, h, path.out) {
+FoldDot <- function(ps, var1, var2, lvl = NULL, lvl2 = NULL) {
   ps <-  ps %>% transform_sample_counts(function(x) x/sum(x) ) 
   TaxTab <- tax_table(ps) %>% as.data.frame()
   taxa_names(ps) <- TaxTab$REC
@@ -535,7 +497,6 @@ FoldDot <- function(ps, var1, var2, lvl = NULL, lvl2 = NULL, w, h, path.out) {
   if (!is.null(lvl2)) TaxTab2_agg[[var2]] <- factor(TaxTab2_agg[[var2]], levels = lvl2)
 
 
-  pdf(path.out, width = w, height = h)
   print(ggplot(TaxTab2_agg, aes(x = get(var1), y = REC)) +
           geom_point(aes(size = abs(Abundance), color = Abundance)) +
           scale_size(range = c(2, 8))+
@@ -545,7 +506,6 @@ FoldDot <- function(ps, var1, var2, lvl = NULL, lvl2 = NULL, w, h, path.out) {
           facet_grid(. ~ get(var2), scales = "free_x") + 
           theme_bw(base_size = 15)+
           theme(axis.text.x = element_text(angle = 45, hjust = 1))) 
-  dev.off()
 }
 
 FoldDot(ps7.merge, var1 = "For_AVE", var2 = "Kit", 
@@ -557,21 +517,19 @@ FoldDot(ps7.merge, var1 = "For_AVE", var2 = "Kit",
                  "Microbiome_Chemical_Bead_beating_","Microbiome_Chemical_Bead_beating_Rnase_ammonium_acetate",
                  "Microbiome_Vortex_","Microbiome_Vortex_Rnase_ammonium_acetate",
                  "Microbiome_Chemical_Vortex_","Microbiome_Chemical_Vortex_Rnase_ammonium_acetate"),
-        lvl2 = c("Expected", "Total_phase3", "Total_ProteinaseK"),
-        path.out = file.path(path,"feature_table/DotPlot/Fold_ps7_For_AVE_Kit.pdf"), w = 8.2, h = 8)
+        lvl2 = c("Expected", "Total_phase3", "Total_ProteinaseK"))
 
 FoldDot(ps3.merge, var1 = "For_AVE", var2 = "KIT", 
         lvl = c("Total_Bead_beating_6.5_2min","Total_Vortex_NA","Total_Chemical_NA",
                "Core_Bead_beating_6.5_2min","Core_Vortex_","Core_Chemical_",
                "Ultra2_Bead_beating_6.5_2min","Ultra2_Vortex_","Ultra2_Chemical_"),
-        lvl2 = c("Total", "Core","Ultra2"),
-        path.out = file.path(path,"feature_table/DotPlot/Fold_ps3_For_AVE_Kit.pdf"), w = 8.2, h = 5.95)
+        lvl2 = c("Total", "Core","Ultra2"))
 
 ```
 
 #### Fold change analysis compared to the B1
 ```{r}
-FoldB1Bar <- function(df, w, h, path.out) {
+FoldB1Bar <- function(df) {
 
   ExpTaxa <- c("Bacillaceae","Bacillus","Corynebacterium","Clostridiales","Clostridiaceae",
                "Clostridium","Enterococcus","Escherichia","Enterobacteriaceae",
@@ -587,7 +545,6 @@ FoldB1Bar <- function(df, w, h, path.out) {
   dfm$REC = factor(dfm$REC, levels = ExpTaxa)
   dfm$SampleType <- factor(dfm$SampleType, levels = c("Mock","Milk"))
 
-  pdf(path.out, width = w, height = h)
   print(
     ggbarplot(dfm, 
               x = "SampleType", y = "RelativeDiff", color = "Method", fill = "Method", 
@@ -595,12 +552,10 @@ FoldB1Bar <- function(df, w, h, path.out) {
               palette = "jco", 
               merge =  "asis", # Set bar side by side instead of stacked
               add = c("mean_se"), position = position_dodge(0.8)))
-  dev.off()
 }
 
-RelDiffB1 <- read.csv(file.path(path,"feature_table/FeatTab_RelDiff_B1.csv"))
-FoldB1Bar(RelDiffB1, w = 7.5, h = 5, 
-          path.out = file.path(path,"feature_table/milk_mock_RelDiffB1.pdf"))
+RelDiffB1 <- read.csv(file.path("data/FeatTab_RelDiff_B1.csv"))
+FoldB1Bar(RelDiffB1)
 ```
 
 
@@ -660,7 +615,7 @@ HarshLyseDA <- function(ps, path.out) {
   if (nrow(resC1) > 0) write.csv(sigtabC1, file.path(path.out, "sigtabC1.csv"))
 }
 
-HarshLyseDA(psList[[1]], path.out = file.path(path, "deseq_table/HarshLyse"))
+HarshLyseDA(psList[[1]], path.out = file.path("DESeq2_restab/HarshLyse"))
 
 # Define function for 3 different kits (Total, Core, Ultra2)
 KitDA <- function(ps, path.out) {
@@ -703,13 +658,13 @@ KitDA <- function(ps, path.out) {
 
 # Total kit
 KitDA(subset_samples(psList[[3]], KIT %in% c("Total","Expected")),
-      path.out = file.path(path, "deseq_table/Kit/Total"))
+      path.out = file.path("DESeq2_restab/Kit/Total"))
 # Core kit
 KitDA(subset_samples(psList[[3]], KIT %in% c("Core","Expected")),
-      path.out = file.path(path, "deseq_table/Kit/Core"))
+      path.out = file.path("DESeq2_restab/Kit/Core"))
 # Ultra2 kit
 KitDA(subset_samples(psList[[3]], KIT %in% c("Ultra2","Expected")),
-      path.out = file.path(path, "deseq_table/Kit/Ultra2"))
+      path.out = file.path("DESeq2_restab/Kit/Ultra2"))
 
 
 
@@ -776,11 +731,7 @@ PMADA <- function(ps, path.out) {
   }  
 }
 
-PMADA(psList[[4]], path.out = file.path(path,"deseq_table/PMA"))
-PMADA(subset_taxa(psList[[4]], REC %in% c("Bacillaceae","Bacillus","Corynebacterium",
-                                          "Clostridiaceae","Clostridium","Enterococcus",
-                                          "Escherichia","Lactococcus","Pseudomonas","Staphylococcus","Streptococcus")),
-      path.out = file.path(path,"deseq_table/PMAnoOther"))
+PMADA(psList[[4]], path.out = file.path("DESeq2_restab/PMA"))
 
 
 # Define function for Gentle cell lysis methods (ps7)
@@ -868,13 +819,13 @@ Phase3DA <- function(ps, path.out) {
   if (nrow(resC2V3RP) > 0) write.csv(sigtabC2V3RP, file.path(path.out, "sigtabC2V3RP.csv"))
 }
 
-Phase3DA(psList[[7]], path.out = file.path(path,"deseq_table/phase3"))
+Phase3DA(psList[[7]], path.out = file.path("DESeq2_restab/phase3"))
 ```
 
 
 ### For alpha and beta div based on ps.REC.glom after rarefaction (ps.REC.glom.rare)
 I did not use ps.Phy05 for beta because the expected ASV is not the same as the actual sequenced ASV. If use ps.Phy05, the Bray distance of samples from expected would all be 1 (doesn't share any common species). The assumption is that the taxa assignment is accurate until Genus. Therefore, for alpha diversity, I would also use ps.REC.glom to keep until Genus level.
-```{r include=FALSE}
+```{r}
 ps.glom.rare <-  rarefy_even_depth(ps.REC.glom, sample.size = 3990, 
                                    replace = TRUE, rngseed = 123 , 
                                    trimOTUs = TRUE, verbose = TRUE)
@@ -902,24 +853,21 @@ DistTab <- function(ps, DistMethod){
 # use the function to write bray distance list and write out as csv files
 BrayList <- lapply(psList.rare, DistTab, DistMethod = "bray")
 names(BrayList) <- c(1:8)
-mapply(write.csv, BrayList, file = paste0(path, "distance/bray_", names(BrayList), ".csv"))
+dir.create("distance/bray", recursive = TRUE)
+mapply(write.csv, BrayList, file = paste0("distance/bray/", names(BrayList), ".csv"))
 
 # write out weighted list as well
 WeightList <- lapply(psList.rare, UniFrac, weighted = TRUE)
 WeightList <- lapply(WeightList, as.matrix)
 names(WeightList) <- c(1:8)
-mapply(write.csv, WeightList, file = paste0(path, "distance/weighted_", names(WeightList), ".csv"))
+dir.create("distance/weighted", recursive = TRUE)
+mapply(write.csv, WeightList, file = paste0("distance/weighted/", names(WeightList), ".csv"))
 
-# write out for ps.milk 
-DistTab(ps.milk, DistMethod = "bray") %>% write.csv(file.path(path, "distance/bray_milk.csv"))
-UniFrac(ps.milk, weighted = TRUE) %>%
-  as.matrix() %>% write.csv(file.path(path, "distance/weighted_milk.csv"))
 
 # Import organized and subsetted (only extraction) distance csv file for making bar plots
 # Define function to make box plot and add p-values to the plot 
 ## based on the package called "ggpubr"
-DistBox <- function(df, DistMethod,lvl,facet.variable = NULL,ref = NULL,comp=NULL,
-                    path.out, w, h) {
+DistBox <- function(df, DistMethod,lvl,facet.variable = NULL,ref = NULL,comp=NULL) {
   df$Description <- factor(df$Description, levels = lvl)
   df$Kit <- factor(df$Kit, levels = c("Total","Core","Ultra2",
                                       "Total_phase3", "Total_ProteinaseK"))
@@ -929,7 +877,6 @@ DistBox <- function(df, DistMethod,lvl,facet.variable = NULL,ref = NULL,comp=NUL
                                 "Chemical + Bead beat: 1hr + 10s x 4m/s",
                                 "Vortex: 30s", "Chemical + Vortex: 1hr + 30s "))
   
-  pdf(path.out, w, h )
   (ggboxplot(df, x = "Description", y = "ave", ylab = DistMethod,add = "jitter",
              fill = "Lysis", palette = "Set3", facet.by = facet.variable,
              short.panel.labs = FALSE, 
@@ -937,7 +884,6 @@ DistBox <- function(df, DistMethod,lvl,facet.variable = NULL,ref = NULL,comp=NUL
              ggtheme = theme_bw()) + 
      stat_compare_means(method = "t.test", ref.group = ref, comparisons = comp,
                         hide.ns = FALSE,  label = "p.signif")) %>% print
-  dev.off()
   
   # ns: p > 0.05
   # *: p <= 0.05
@@ -949,106 +895,91 @@ DistBox <- function(df, DistMethod,lvl,facet.variable = NULL,ref = NULL,comp=NUL
 
 # Plot for ps3
 ## DNA extraction using 3 kits (Total, Core, Ultra)
-Bray.3kits <- read.csv(file.path(path,"distance/organized_bray_3_3kits.csv"))
+Bray.3kits <- read.csv(file.path("distance/organized_bray_3_3kits.csv"))
 DistBox(Bray.3kits, DistMethod = "Bray-Curtis dissimilarity",
         lvl = c("Total_Bead_beating_6.5_2min","Total_Vortex_NA","Total_Chemical_NA",
                 "Core_Bead_beating_6.5_2min","Core_Vortex_","Core_Chemical_",
                 "Ultra2_Bead_beating_6.5_2min","Ultra2_Vortex_","Ultra2_Chemical_"),
-        ref = "Total_Bead_beating_6.5_2min",
-        path.out = file.path(path,"distance/Bray.3kits.pdf"), w = 5, h = 2.8)
+        ref = "Total_Bead_beating_6.5_2min")
 
-weighted.3kits <- read.csv(file.path(path,"distance/organized_weighted_3_3kits.csv"))
+weighted.3kits <- read.csv(file.path("distance/organized_weighted_3_3kits.csv"))
 DistBox(weighted.3kits, DistMethod = "Weighted UniFrac distance",
         lvl = c("Total_Bead_beating_6.5_2min","Total_Vortex_NA","Total_Chemical_NA",
                 "Core_Bead_beating_6.5_2min","Core_Vortex_","Core_Chemical_",
                 "Ultra2_Bead_beating_6.5_2min","Ultra2_Vortex_","Ultra2_Chemical_"),
-        ref = "Total_Bead_beating_6.5_2min",
-        path.out = file.path(path,"distance/Weighted.3kits.pdf"), w = 5, h = 2.8)
+        ref = "Total_Bead_beating_6.5_2min")
 
 
 # Plot for ps7
 ## DNA extration from Phase 3 (distance from the expected value)
-Bray.ext <- read.csv(file.path(path, "distance/organized_distance_extraction_bray.csv"))
+Bray.ext <- read.csv(file.path("distance/organized_distance_extraction_bray.csv"))
 DistBox(Bray.ext, DistMethod = "Bray-Curtis dissimilarity",
         lvl = c("10TB", "10TV", "10TC", "10CB", "10CV", "10CC", 
                 "10UB", "10UV", "10UC", "M4W","M4R","ML4W",
                 "ML4R","MVW","MVR","MLVW","MLVR", "P4W","P4R",
                 "PL4W","PL4R","PVW","PVR","PLVW","PLVR"),
-        ref = "10TB",
-        path.out = file.path(path,"distance/Bray.ext.pdf"), w = 8, h = 4.5)
+        ref = "10TB")
 
-weighted.ext <- read.csv(file.path(path, "distance/organized_distance_extraction_weighted.csv"))
+weighted.ext <- read.csv(file.path("distance/organized_distance_extraction_weighted.csv"))
 DistBox(weighted.ext, DistMethod = "Weighted UniFrac distance",
         lvl = c("10TB", "10TV", "10TC", "10CB", "10CV", "10CC", 
                 "10UB", "10UV", "10UC", "M4W","M4R","ML4W",
                 "ML4R","MVW","MVR","MLVW","MLVR", "P4W","P4R",
                 "PL4W","PL4R","PVW","PVR","PLVW","PLVR"),
-        ref = "10TB",
-        path.out = file.path(path,"distance/Weigted.ext.pdf"), w = 8, h = 4.5)
+        ref = "10TB")
 
 
 # Plot for ps6
 ## Milk vol extraction sample variability (intra-sample distance)
-Bray.vol <- read.csv(file.path(path,"distance/organized_bray_6.csv"))
+Bray.vol <- read.csv(file.path("distance/organized_bray_6_intra.csv"))
 DistBox(Bray.vol, DistMethod = "Bray-Curtis dissimilarity", 
         facet.variable = "Lysis", lvl = c("30ml","10ml","1ml","200ul"),
         comp =  list(c("30ml","10ml"),c("30ml","1ml"),c("30ml","200ul"),
-                     c("10ml","1ml"),c("10ml","200ul"),c("1ml","200ul")),
-        path.out = file.path(path,"distance/Bray.vol.pdf"), w = 4.4, h = 2.3)
+                     c("10ml","1ml"),c("10ml","200ul"),c("1ml","200ul")))
 
-weighted.vol <- read.csv(file.path(path,"distance/organized_weighted_6.csv"))
+weighted.vol <- read.csv(file.path("distance/organized_weighted_6_intra.csv"))
 DistBox(weighted.vol, DistMethod = "Weighted UniFrac distance", 
         facet.variable = "Lysis", lvl = c("30ml","10ml","1ml","200ul"),
         comp =  list(c("30ml","10ml"),c("30ml","1ml"),c("30ml","200ul"),
-                     c("10ml","1ml"),c("10ml","200ul"),c("1ml","200ul")),
-        path.out = file.path(path,"distance/Weighted.vol.pdf"), w = 4.4, h = 2.3)
+                     c("10ml","1ml"),c("10ml","200ul"),c("1ml","200ul")))
   
 # Plot for ps.milk
-bray.milk <- read.csv(file.path(path,"distance/organized_bray_milk_intra_inter.csv")) 
+bray.milk <- read.csv(file.path("distance/organized_bray_milk_intra_inter.csv")) 
 DistBox(bray.milk,  DistMethod = "Bray-Curtis dissimilarity", 
         lvl = c("intra","inter"),
         facet.variable = "Kit", 
-        ref = "intra",
-        path.out = file.path(path,"distance/Bray.milk.pdf"), w = 3, h = 2.6)
+        ref = "intra")
 
-weighted.milk <- read.csv(file.path(path,"distance/organized_weighted_milk_intra_inter.csv")) 
+weighted.milk <- read.csv(file.path("distance/organized_weighted_milk_intra_inter.csv")) 
 DistBox(weighted.milk,  DistMethod = "Weighted UniFrac distance", 
         lvl = c("intra","inter"),
         facet.variable = "Kit", 
-        ref = "intra",
-        path.out = file.path(path,"distance/weighted.milk.pdf"), w = 3, h = 2.6) 
+        ref = "intra") 
 
 
   
 # Define function to draw cluster dendrogram
-DistDendro <- function(dist, ClusterMethod, path.out, w, h){
-  pdf(path.out, w, h)
+DistDendro <- function(dist, ClusterMethod){
   hclust(as.dist(dist), method = ClusterMethod) %>% plot() %>% print()
-  dev.off()
 }
 
 ## dendrogram for ps5.rare BCMC2
 Bray5 <- DistTab(subset_samples(psList.rare[[5]], For_AVE %in% c("Glycerol","PBS2","Expected2")),
                  "bray")
-DistDendro(dist = Bray5, ClusterMethod = "average",
-           path.out = file.path(path, "distance/UPGMA_bray.pdf"), w = 7, h = 4.5)
+DistDendro(dist = Bray5, ClusterMethod = "average")
 Wuf5 <- UniFrac(subset_samples(psList.rare[[5]], For_AVE %in% c("Glycerol","PBS2","Expected2")),
                 weighted = TRUE)
-DistDendro(dist = Wuf5, ClusterMethod = "average",
-           path.out = file.path(path, "distance/UPGMA_weighted.pdf"), w = 7, h = 4.5)
+DistDendro(dist = Wuf5, ClusterMethod = "average")
 ## dendrogram for ps5.rare BCMC1
 Bray5.2 <- DistTab(subset_samples(psList.rare[[5]], For_AVE %in% c("Fresh","Freeze_Thaw","Expected1")),
                  "bray")
-DistDendro(dist = Bray5.2, ClusterMethod = "average",
-           path.out = file.path(path, "distance/UPGMA_bray_BCMC1.pdf"), w = 7, h = 4.5)
-
+DistDendro(dist = Bray5.2, ClusterMethod = "average")
 
 
 # Define function to plot 2D beta diversity dot plot
-BetaPlot <- function(ps, ClusterMethod, DistMethod, var1, w, h, path.out){
+BetaPlot <- function(ps, ClusterMethod, DistMethod, var1){
   ps.ord <- ordinate(ps, method = ClusterMethod, distance = DistMethod)
   
-  pdf(path.out, w, h)
   print(plot_ordination(ps, ps.ord, color = var1) + 
           geom_point(size=3)+ 
           scale_color_brewer(palette="Paired")+
@@ -1056,23 +987,19 @@ BetaPlot <- function(ps, ClusterMethod, DistMethod, var1, w, h, path.out){
           ylab("NMDS2")+ 
           xlab("NMDS1")+
           theme_bw(base_size = 15))
-  dev.off()
 }
 
 
 # ps6 (sample volume)
 BetaPlot(subset_samples(psList.rare[[6]], SampleID != "10TB.1" & SampleID != "10TB.2" & SampleID != "10TB.3"),
-         ClusterMethod = "NMDS", DistMethod = "bray", var1 = "For_AVE",
-         path.out = file.path(path, "beta/ps6_NMDS_bray.pdf"), 5, 3.6)
+         ClusterMethod = "NMDS", DistMethod = "bray", var1 = "For_AVE")
 
 # ps 4 (PMA)
-BetaPlot(psList.rare[[4]], ClusterMethod = "NMDS", DistMethod = "bray", var1 = "For_AVE",
-         path.out = file.path(path, "beta/ps4_NMDS_bray.pdf"), 5, 3.6)
+BetaPlot(psList.rare[[4]], ClusterMethod = "NMDS", DistMethod = "bray", var1 = "For_AVE")
 
 
 # Define function for making heatmap of distance from Exp 
-DistHeat <- function(df, path.out, w, h, lvl){
-  pdf(path.out, w, h)
+DistHeat <- function(df, lvl){
   superheat(df,
             left.label.size = 0.7,
             bottom.label.size = 0.1,
@@ -1082,33 +1009,31 @@ DistHeat <- function(df, path.out, w, h, lvl){
             #heat.col.scheme = "red",
             scale = TRUE,
             order.rows = order(-df$order_factor))
-  dev.off()
 }
 
 # Plot for all method ps1-ps8 (actually 1-7 because 8 is NC )
 ## read in organized Bray-Curtis dissimilarity file
-bray.1to8exp <- read.csv(file.path(path,"distance/organized_bray_1to8_Exp.csv"))
+bray.1to8exp <- read.csv(file.path("distance/organized_bray_1to8_Exp.csv"))
 bray.1to8exp.ave <- bray.1to8exp %>% group_by(For_AVE) %>% 
   summarise(Theo1.1 = mean(Theo1.1), Theo1.2 = mean(Theo1.2), Theo1.3 = mean(Theo1.3)) %>% 
   data.frame()
 bray.1to8exp.ave <- merge(bray.1to8exp.ave,
-                          read.csv(file.path(path, "distance/lvl_organized_bray_1to8_Exp.csv")),
+                          read.csv(file.path("distance/lvl_organized_bray_1to8_Exp.csv")),
                           by = "For_AVE")
 row.names(bray.1to8exp.ave) <- bray.1to8exp.ave$For_AVE
 bray.1to8exp.ave <- bray.1to8exp.ave[,c("Theo1.1","Theo1.2","Theo1.3","order_factor")]
 ## Plot
-DistHeat(bray.1to8exp.ave, 
-         path.out = file.path(path,"distance/Bray.all_Exp.pdf"), w = 3, h = 8)
-DistHeat(subset(bray.1to8exp.ave, !row.names(bray.1to8exp.ave) %in% c("Untreated","Live","Dead","Half")), 
-         path.out = file.path(path,"distance/Bray.all_noPMA_Exp.pdf"), w = 3, h = 8)
+DistHeat(bray.1to8exp.ave)
+DistHeat(subset(bray.1to8exp.ave, !row.names(bray.1to8exp.ave) %in% c("Untreated","Live","Dead","Half")))
 
+# Afterwards, I remove the order factor column in Adobe Illustrator
 ```
 
 
 #### Alpha diversity
 ```{r}
 # Define function that plots out alpha box plot as well as p values
-AlphaBox <- function(ps, alpha_measures, var1, var, lvl, path.out, w, h){
+AlphaBox <- function(ps, alpha_measures, var1, var, lvl){
   df <- estimate_richness(ps, split = TRUE, measures = alpha_measures) 
   row.names(df) <- gsub("X","",row.names(df) )
   # add sample metadata information
@@ -1119,14 +1044,12 @@ AlphaBox <- function(ps, alpha_measures, var1, var, lvl, path.out, w, h){
               variable.name = "measure", value.name = "value")
   dfm[[var1]] <- factor(dfm[[var1]], levels = lvl)
   
-  pdf(path.out, w, h)
   p<- ggboxplot(dfm, x = var1, y = "value", add = "jitter", palette = "Set3",
                 font.label = list(size = 18, face = "plain"), ggtheme = theme_bw())+
     stat_compare_means(method = "t.test", ref.group = "Expected", 
                        hide.ns = TRUE,  label = "p.signif")
 
   facet(p, facet.by = "measure", scales = "free") %>% print()
-  dev.off()
 }
 
 # Alpha box plot on ps6 (sample volume)
@@ -1136,16 +1059,14 @@ AlphaBox(subset_samples(psList.rare[[6]], SampleID != "10TB.1" & SampleID != "10
          var1 = "For_AVE", var = c("KIT","For_AVE","STORAGE","MATRIX","PMA",
                                    "SampleOrCtrl","LYSING","Chemical_time",
                                    "Bead_beat_speed_time","vortex_time","Description"),
-         lvl = c("Expected","30ml","10ml","1ml","200uL"),
-         path.out = file.path(path, "alpha/ps6_ForAVE.pdf"), 4.5, 2.3)
+         lvl = c("Expected","30ml","10ml","1ml","200uL"))
 
 # Alpha box plot on ps 4 (PMA)
 AlphaBox(psList.rare[[4]], alpha_measures = c("Observed", "Shannon"),
          var1 = "For_AVE", var = c("KIT","For_AVE","VOL","STORAGE","MATRIX","PMA",
                                    "SampleOrCtrl","LYSING","Chemical_time",
                                    "Bead_beat_speed_time","vortex_time","Description"),
-         lvl = c("Expected","Untreated","Live","Half","Dead"),
-         path.out = file.path(path, "alpha/ps4_ForAVE.pdf"), 4.5, 2.3)
+         lvl = c("Expected","Untreated","Live","Half","Dead"))
 
 ```
 
@@ -1154,45 +1075,40 @@ AlphaBox(psList.rare[[4]], alpha_measures = c("Observed", "Shannon"),
 ### PMA on single bacterial strain or gDNA 
 ```{r}
 # PMA on E.coli gDNA 
-PMA.conc <- read.csv(file.path(path, "qPCR/10min_conc.csv"))
+PMA.conc <- read.csv(file.path("data/10min_conc.csv"))
 gghistogram(PMA.conc, x = "Ct_diff",
             add = "mean", rug = TRUE, color = "Treatment", fill = "Treatment",
             palette = c("#00AFBB", "#E7B800"))
-pdf(file.path(path, "qPCR/10min_conc.pdf"), 3.2, 3)
+
 print(ggboxplot(PMA.conc, x = "Treatment", y = "Ct_diff",
                 font.label = list(size = 18, face = "plain"), 
                 ggtheme = theme_bw()) +
         stat_compare_means(method = "kruskal", hide.ns = TRUE, label = "p.signif"))
-dev.off()
 
 # PMA on 3 species strain 
-PMA.T <- read.csv(file.path(path, "qPCR/50uM_time.csv"))
+PMA.T <- read.csv(file.path("data/50uM_time.csv"))
 PMA.T$Cell_state <- factor(PMA.T$Cell_state, levels = c("Live", "Half", "Dead"))
 ## make a df to p value annotation
 df.anno <- compare_means(PerOf_untreated ~ Treatment, method = "kruskal.test",
                          group.by = "Cell_state", 
                          data = subset(PMA.T, Species == "Escherichia coli")) %>% mutate(y_pos = 12)
 # not significant 
-
-pdf(file.path(path, "qPCR/50uM_time.pdf"), 6, 3)
 print(ggboxplot(subset(PMA.T, PerOf_untreated != "NA"), 
                 x = "Treatment", y = "PerOf_untreated", color = "Cell_state",
                 font.label = list(size = 18, face = "plain"), 
                 palette = "jco", ggtheme = theme_bw()) +
         facet_wrap(~Species, scales = "free_x"))
-dev.off()
+
 
 # PMA on MC 
-PMC.mc <- read.csv(file.path(path,"qPCR/MC_total.csv"))
+PMC.mc <- read.csv(file.path("data/MC_total.csv"))
 PMC.mc$Cell_state <- factor(PMC.mc$Cell_state, levels = c("Live", "Half", "Dead"))
 
-pdf(file.path(path, "qPCR/PMC.mc.pdf"), 3.2, 3)
 print(ggboxplot(subset(PMC.mc, PerOf_untreated != "NA"), 
                 x = "Cell_state", y = "PerOf_untreated", color = "Cell_state",
                 font.label = list(size = 18, face = "plain"), 
                 palette = "jco", ggtheme = theme_bw()) +
         stat_compare_means(method = "kruskal.test", hide.ns = TRUE,  label = "p.signif"))
-dev.off()
 
 # Adjust proportion with qPCR counts
 ## transform to percentage
@@ -1211,167 +1127,8 @@ otu.q3 <- as.matrix(otu.q3)
 ps4q <- phyloseq(otu_table(otu.q3, taxa_are_rows = FALSE), tax_table(ps4q),
                  sample_data(ps4q), phy_tree(ps4q))
 ps4q
-FeatTab(ps4q) %>% write.csv(file.path(path,"qPCR/FeatTab_ps4q.csv"))
-
-# Plot for AVE ps4q, stacked bar after adjusting for qPCR counts
-## Take average of samples by catergory "For_AVE"
-ps4q.merge <- merge_samples(ps4q, "For_AVE", fun = mean)
-## Repair the merged values associated with each surface after merge
-sample_data(ps4q.merge)$For_AVE <- levels(sample_data(ps4q)$For_AVE)
-TaxBar(ps4q.merge,
-       var1 = "For_AVE", var2 = "SampleID",
-       lvl = c("Expected","Untreated","Live","Half","Dead"),
-       path.out = file.path(path, "feature_table/ps4_For_AVE_qPCR.pdf"),4.5,5.5)
-
-# Plot for percent of untreated for each strain
-PMC.strain <- read.csv(file.path(path,"qPCR/FeatTab_ps4q_manual.csv"))
-PMC.strain$Treatment <- factor(PMC.strain$Treatment, levels = c("Live", "Half", "Dead"))
-pdf(file.path(path, "qPCR/PMC.strain.pdf"), 6.5, 4.8)
-print(ggboxplot(subset(PMC.strain, PerOf_untreated != "NA"), 
-                x = "Treatment", y = "PerOf_untreated", color = "Treatment",
-                facet.by = "Taxon", scale = "free_y",
-                font.label = list(size = 18, face = "plain"), 
-                palette = "jco", ggtheme = theme_bw()) +
-        stat_compare_means(method = "kruskal.test", hide.ns = TRUE,  label = "p.signif"))
-dev.off()
 ```
 
 
-## Use decontam package to see if by removing the UHT taxa, the vol (ps6) will be better
-```{r eval=FALSE, include=FALSE}
-# Read in ps.Phy05 (not glom at any taxonomy level) to subset vol samples 
-samdf6d <- read.csv(file.path(path, "mapping/MC_paper2_samdf_total_vol_decontam.csv"))
-rownames(samdf6d) <- samdf6d$SampleID
-ps6d <- phyloseq(sample_data(samdf6d), otu_table(ps.Phy05),
-                 tax_table(ps.Phy05), phy_tree(ps.Phy05))
-ps6d # 197 taxa and 22 samples 
-
-# Inspect library sizes
-## add a colum for read counts/library size
-samdf6d$LibrarySize <- sample_sums(ps6d)
-## sort by the library size in increasing order
-samdf6d <- samdf6d[order(samdf6d$LibrarySize),]
-samdf6d$Index <- seq(nrow(samdf6d))
-ggplot(samdf6d, aes(x=Index, y=LibrarySize, color=SampleOrCtrl))+geom_point()
-
-# Identify contaminants using the prevalance pooled method
-## sort the rownames of seq feature table
-SeqTab6d <- otu_table(ps6d) %>% data.frame() %>% t()
-rownames(SeqTab6d) <- gsub("X","", row.names(SeqTab6d))
-SeqTab6d <- SeqTab6d[order(row.names(SeqTab6d)),]
-## sort the sample metadata file 
-samdf6d <- samdf6d[order(row.names(samdf6d)),]
-## check to see if the row names of these two matrices match 
-identical(row.names(SeqTab6d), row.names(samdf6d)) 
-## define negative control samples
-is.neg <- samdf6d$SampleOrCtrl %in% "Ctrl"
-samdf6d$is.neg <- is.neg
-
-
-# Find a suitable p value based on ASV number
-library(decontam);packageVersion("decontam")
-decontam.pool <- isContaminant(seqtab = SeqTab6d, neg = is.neg, 
-                               method = "prevalence", threshold = 0.1,
-                               normalize = TRUE)
-table(decontam.pool$contaminant)
-threshs <- seq(0, 1, length.out = 101)
-## merge p values as dataframe with taxTab output
-pval <- data.frame(id=row.names(decontam.pool), pval.po=decontam.pool$p)
-row.names(pval) <- pval$id
-pval <- pval[order(pval$id),]
-TaxTab6d <- tax_table(ps6d) %>% data.frame()
-TaxTab6d$Id <- row.names(TaxTab6d)
-TaxTab6d <- TaxTab6d[order(row.names(TaxTab6d)),]
-identical(row.names(pval),row.names(TaxTab6d))
-TaxTab6d <- merge(TaxTab6d, pval, by.x = 'Id', by.y = 'id', all.x = TRUE, sort=FALSE)
-## get p-values and define group
-p.pool <- data.frame(x= 1:dim(TaxTab6d)[1])
-p.pool$pval <- TaxTab6d$pval.po
-p.pool$Method <- "pool"
-p.pool <- p.pool[,-1]
-## visualize the threshold results
-ggplot(p.pool, aes(pval, fill=Method))+ geom_histogram()
-
-# Find a suitable p value based on reads number
-## get total read number 
-totSeqTab <- sum(SeqTab6d)
-p.reads <- data.frame(pool=sapply(threshs, function(t) sum(SeqTab6d[,decontam.pool$p<t],
-                                                           na.rm=TRUE)/totSeqTab),
-                      threshold=threshs)
-mp.reads <- melt(p.reads, id.vars="threshold", value.name="Fraction.reads", 
-                 variable.name="Method") #m prefix for melt
-ggplot(data=mp.reads, aes(x=threshold, y=Fraction.reads, color=Method)) + 
-  geom_line() + geom_point() + xlim(0,1) + ylim(0,1) +
-  scale_color_manual(values=c("pool"="black")) +
-  theme_bw() + 
-  xlab("P-value Threshold") + 
-  ylab("Reads IDed as Contaminants\n(Proportion)") #f prefix for figure
-
-# Identify contaminants using the prevalance pooled method with p=0.25
-decontam.p.25 <- isContaminant(seqtab = SeqTab6d, neg = is.neg, 
-                               method = "prevalence",threshold = 0.25, normalize = TRUE)
-table(decontam.p.25$contaminant)
-
-# Make phyloseq object of presence-absence in negative controls
-ps.neg <- prune_samples(sample_data(ps6d)$SampleOrCtrl %in% c("Ctrl"), ps6d)
-ps.neg.presence <- transform_sample_counts(ps.neg, function(abund) 1*(abund>0))
-# Make phyloseq object of presence-absence in true positive samples
-ps.pos <- prune_samples(sample_data(ps6d)$SampleOrCtrl %in% c("Sample"), ps6d)
-ps.pos.presence <- transform_sample_counts(ps.pos, function(abund) 1*(abund>0))
-# Make data.frame of prevalence in positive and negative samples
-df.pres <- data.frame(prevalence.pos=taxa_sums(ps.pos.presence),
-                      prevalence.neg=taxa_sums(ps.neg.presence),
-                      contam.prev=decontam.p.25$contaminant)
-ggplot(data=df.pres, aes(x=prevalence.neg, y=prevalence.pos, color=contam.prev))+
-  geom_point()
-
-# Remove identified contaminants
-rm <- subset(decontam.p.25, p < 0.25) %>% row.names()
-SeqTab6d.25 <- select(as.data.frame(SeqTab6d),-one_of(rm))
-
-# Merge as a phyloseq object after decontam 
-ps6d.25 <- phyloseq(sample_data(samdf_total_vol), 
-                    otu_table(SeqTab6d.25, taxa_are_rows = FALSE),
-                    tax_table(ps6d), phy_tree(ps6d))
-ps6d.25 # 150 taxa and 22 samples 
-ps6d.25 <- tax_glom(ps6d.25, taxrank = "Genus", NArm = FALSE)
-ps6d.25 <- RECps(TaxTab, ps6d.25)
-ps6d.25 # 80 taxa and 18 samples
-
-# individual sample taxa plot
-TaxBar(subset_samples(ps6d.25, SampleID != "Theo2.2" & SampleID != "Theo2.3" &  
-                        # subset to contain only one expected value
-                        SampleID != "10TB.1" & SampleID != "10TB.2" & SampleID != "10TB.3"),
-                        # subset to include only one set of 10ml samples
-       var1 = "SampleID", var2 = "For_AVE",
-       lvl = c("Theo2.1","MC.30ml.UHT.1","MC.30ml.UHT.2","MC.30ml.UHT.3",
-               "MC.10ml.UHT.1","MC.10ml.UHT.2","MC.10ml.UHT.3",
-               "MC.1ml.UHT.1","MC.1ml.UHT.2","MC.1ml.UHT.3","200TB.1","200TB.2","200TB.3"),
-       lvl2 = c("Expected","30ml","10ml","1ml","200uL"),
-       path.out = file.path(path, "feature_table/ps6d.25_SampleID_For_AVE.pdf"),7.5,5)
-```
-At the end, the decontam package did not remove much of the contaminant, unexpected
-taxa. Therefore, I decided to take a closer look by manually examine the taxtab.
-Also, I want to find out if, for example, the Bacillus in MC is the same ASV as 
-in UHT. If not, I may be able to perform manual filtering.
-
-
-## Manual filtering to see if by removing the UHT taxa, the vol (ps6) will be better
-```{r}
-# write out featuretab
-transform_sample_counts(ps6d, function(x) x/sum(x)) %>% psmelt() %>% 
-  dcast(For_AVE + SampleID ~ OTU, value.var = "Abundance") %>% 
-  write.csv(file.path(path, "feature_table/FeatTab_6d_ASV.csv"))
-# write out taxtab
-(ps6d@tax_table) %>% 
-  write.csv(file.path(path, "tax_table/TaxTab_6d_ASV.csv"))
-
-# Yes there are some OTU overlap. Can not remove
-```
-
-
-
-Percent recovery of GBS DNA with meconium extractions
-generated from various extraction kits. Data are mean ± S
 
 

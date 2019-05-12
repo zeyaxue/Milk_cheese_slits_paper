@@ -1,0 +1,5 @@
+"","baseMean","log2FoldChange","lfcSE","stat","pvalue","padj","Kingdom","Phylum","Class","Order","Family","Genus","REC"
+"ef53c96349a804410165ad1870cfc6b2",3256.41638497994,2.88282522446074,0.659241949135964,3.48561363055138,0.000491009634784149,0.00638312525219393,"Bacteria","Proteobacteria","Gammaproteobacteria","Pseudomonadales","Pseudomonadaceae","Pseudomonas","Pseudomonas"
+"bc44915a0352691cc51940bd90fc8321",150.70116103264,3.79170965619032,0.534005462104589,6.00508306194272,1.9123397836579e-09,7.45812515626579e-08,"Bacteria","Actinobacteria","Actinobacteria","Actinomycetales","Corynebacteriaceae","Corynebacterium","Corynebacterium"
+"a966717f3404d717f79d4bb77b0f90df",25.7547357701756,-4.44335609116098,1.4926409825759,-2.58494415970093,0.00973947696120066,0.0949599003717065,"Bacteria","Firmicutes","Clostridia","Clostridiales","Ruminococcaceae","Faecalibacterium","Faecalibacterium"
+"91f309287bb3e7621cabe2c00cedb163",12.2968700030207,-14.0918479312256,2.80050994581997,-4.82300927038831,1.41408395867127e-06,2.75746371940897e-05,"Bacteria","Firmicutes","Clostridia","Clostridiales","Lachnospiraceae","","Lachnospiraceae"

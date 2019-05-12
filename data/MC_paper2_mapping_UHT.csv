@@ -1,0 +1,15 @@
+SampleID,KIT,VOL,STORAGE,MATRIX,PMA,LYSING,For_AVE
+Blank.30ml.UHT.1,NA,NA,NA,MILK,N,Bead_beating,30ml_UHT_NC
+1.1,Total,NA,NA,MILK,N,Bead_beating,UHT
+1.2,Total,NA,NA,MILK,N,Bead_beating,UHT
+1.3,Total,NA,NA,MILK,N,Bead_beating,UHT
+10TB.NC,Total,10mL_NC,NA,MILK,N,Bead_beating_NC,UHT_NC
+10TV.NC,Total,10mL_NC,NA,MILK,N,Vortex_NC,UHT_NC
+10TC.NC,Total,10mL_NC,NA,MILK,N,Chemical_NC,UHT_NC
+10CB.NC,Core,10mL_NC,NA,MILK,N,Bead_beating_NC,UHT_NC
+10CV.NC,Core,10mL_NC,NA,MILK,N,Vortex_NC,UHT_NC
+10CC.NC,Core,10mL_NC,NA,MILK,N,Chemical_NC,UHT_NC
+10UB.NC,Ultra2,10mL_NC,NA,MILK,N,Bead_beating_NC,UHT_NC
+10UV.NC,Ultra2,10mL_NC,NA,MILK,N,Vortex_NC,UHT_NC
+10UC.NC,Ultra2,10mL_NC,NA,MILK,N,Chemical_NC,UHT_NC
+1CC.NC,Core,1mL_NC,NA,MILK,N,Chemical_NC,UHT_NC

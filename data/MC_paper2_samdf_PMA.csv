@@ -1,0 +1,16 @@
+SampleID,KIT,For_AVE,VOL,STORAGE,MATRIX,PMA,SampleOrCtrl,LYSING,Chemical_time,Bead_beat_speed_time,vortex_time,Description
+MC.50.1,Total,Half,30ml,NA,NA,Y,Sample,Bead_beating,,6.5_2min,,BCMC2
+MC.50.2,Total,Half,30ml,NA,NA,Y,Sample,Bead_beating,,6.5_2min,,BCMC2
+MC.50.3,Total,Half,30ml,NA,NA,Y,Sample,Bead_beating,,6.5_2min,,BCMC2
+MC.50.control.1,Total,Untreated,NA,NA,NA,N,Sample,Bead_beating,,6.5_2min,,BCMC2
+MC.dead.1,Total,Dead,30ml,NA,NA,Y,Sample,Bead_beating,,6.5_2min,,BCMC2
+MC.dead.2,Total,Dead,30ml,NA,NA,Y,Sample,Bead_beating,,6.5_2min,,BCMC2
+MC.dead.3,Total,Dead,30ml,NA,NA,Y,Sample,Bead_beating,,6.5_2min,,BCMC2
+MC.dead.control.1,Total,Untreated,NA,NA,NA,N,Sample,Bead_beating,,6.5_2min,,BCMC2
+MC.live.1,Total,Live,30ml,NA,NA,Y,Sample,Bead_beating,,6.5_2min,,BCMC2
+Mc.live.2,Total,Live,30ml,NA,NA,Y,Sample,Bead_beating,,6.5_2min,,BCMC2
+MC.live.3,Total,Live,30ml,NA,NA,Y,Sample,Bead_beating,,6.5_2min,,BCMC2
+MC.live.control.1,Total,Untreated,NA,NA,NA,N,Sample,Bead_beating,,6.5_2min,,BCMC2
+Theo2.1,NA,Expected,NA,NA,NA,N,Sample,Theoretical_value,NA,NA,NA,BCMC2
+Theo2.2,NA,Expected,NA,NA,NA,N,Sample,Theoretical_value,NA,NA,NA,BCMC2
+Theo2.3,NA,Expected,NA,NA,NA,N,Sample,Theoretical_value,NA,NA,NA,BCMC2

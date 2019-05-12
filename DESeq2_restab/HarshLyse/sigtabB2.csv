@@ -1,0 +1,5 @@
+"","baseMean","log2FoldChange","lfcSE","stat","pvalue","padj","Kingdom","Phylum","Class","Order","Family","Genus","REC"
+"f8fbeaf253aafeee895ae08c53b99df6",1029.20275363708,1.72217006658153,0.228964615826538,4.96673934422215,6.80880057255834e-07,7.2627206107289e-06,"Bacteria","Proteobacteria","Gammaproteobacteria","Enterobacteriales","Enterobacteriaceae","Escherichia","Escherichia"
+"ef53c96349a804410165ad1870cfc6b2",1635.0267342367,2.55083086477205,0.29139409249754,6.746424909309,1.51532432296022e-11,2.42451891673635e-10,"Bacteria","Proteobacteria","Gammaproteobacteria","Pseudomonadales","Pseudomonadaceae","Pseudomonas","Pseudomonas"
+"bc44915a0352691cc51940bd90fc8321",689.817873408503,-3.76654466235695,0.3879642686012,-8.2007092382681,2.38972900510759e-16,7.64713281634428e-15,"Bacteria","Actinobacteria","Actinobacteria","Actinomycetales","Corynebacteriaceae","Corynebacterium","Corynebacterium"
+"c9bf5c74d65804a3c12ee5f33a35ce53",1456.67763610073,1.05410172258707,0.182124861839452,2.57592081129196,0.00999735395496414,0.0799788316397131,"Bacteria","Firmicutes","Bacilli","Lactobacillales","Enterococcaceae","Enterococcus","Enterococcus"

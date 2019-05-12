@@ -1,0 +1,52 @@
+SampleID,KIT,VOL,For_AVE,STORAGE,MATRIX,PMA,SampleOrCtrl,LYSING,Chemical_time,Bead_beat_speed_time,vortex_time,Rnase,Protein_cleanup,Description,Kit,Lysis
+M4R1,Total,10ml,Total_Bead_beating_Rnase_ammonium_acetate,,glycerol,N,Sample,Bead_beating,,4_10s,,Rnase_ammonium_acetate,,M4R,Total_phase3,Bead beat: 10s x 4m/s
+M4R2,Total,10ml,Total_Bead_beating_Rnase_ammonium_acetate,,glycerol,N,Sample,Bead_beating,,4_10s,,Rnase_ammonium_acetate,,M4R,Total_phase3,Bead beat: 10s x 4m/s
+M4R3,Total,10ml,Total_Bead_beating_Rnase_ammonium_acetate,,glycerol,N,Sample,Bead_beating,,4_10s,,Rnase_ammonium_acetate,,M4R,Total_phase3,Bead beat: 10s x 4m/s
+M4W1,Total,10ml,Total_Bead_beating_,,glycerol,N,Sample,Bead_beating,,4_10s,,,,M4W,Total_phase3,Bead beat: 10s x 4m/s
+M4W2,Total,10ml,Total_Bead_beating_,,glycerol,N,Sample,Bead_beating,,4_10s,,,,M4W,Total_phase3,Bead beat: 10s x 4m/s
+M4W3,Total,10ml,Total_Bead_beating_,,glycerol,N,Sample,Bead_beating,,4_10s,,,,M4W,Total_phase3,Bead beat: 10s x 4m/s
+ML4R1,Total,10ml,Total_Chemical_Bead_beating_Rnase_ammonium_acetate,,glycerol,N,Sample,Chemical_Bead_beating,60min,4_10s,,Rnase_ammonium_acetate,,ML4R,Total_phase3,Chemical + Bead beat: 1hr + 10s x 4m/s
+ML4R2,Total,10ml,Total_Chemical_Bead_beating_Rnase_ammonium_acetate,,glycerol,N,Sample,Chemical_Bead_beating,60min,4_10s,,Rnase_ammonium_acetate,,ML4R,Total_phase3,Chemical + Bead beat: 1hr + 10s x 4m/s
+ML4R3,Total,10ml,Total_Chemical_Bead_beating_Rnase_ammonium_acetate,,glycerol,N,Sample,Chemical_Bead_beating,60min,4_10s,,Rnase_ammonium_acetate,,ML4R,Total_phase3,Chemical + Bead beat: 1hr + 10s x 4m/s
+ML4W1,Total,10ml,Total_Chemical_Bead_beating_,,glycerol,N,Sample,Chemical_Bead_beating,60min,4_10s,,,,ML4W,Total_phase3,Chemical + Bead beat: 1hr + 10s x 4m/s
+ML4W2,Total,10ml,Total_Chemical_Bead_beating_,,glycerol,N,Sample,Chemical_Bead_beating,60min,4_10s,,,,ML4W,Total_phase3,Chemical + Bead beat: 1hr + 10s x 4m/s
+ML4W3,Total,10ml,Total_Chemical_Bead_beating_,,glycerol,N,Sample,Chemical_Bead_beating,60min,4_10s,,,,ML4W,Total_phase3,Chemical + Bead beat: 1hr + 10s x 4m/s
+MLVR1,Total,10ml,Total_Chemical_Vortex_Rnase_ammonium_acetate,,glycerol,N,Sample,Chemical_Vortex,60min,,30s,Rnase_ammonium_acetate,,MLVR,Total_phase3,Chemical + Vortex: 1hr + 30s 
+MLVR2,Total,10ml,Total_Chemical_Vortex_Rnase_ammonium_acetate,,glycerol,N,Sample,Chemical_Vortex,60min,,30s,Rnase_ammonium_acetate,,MLVR,Total_phase3,Chemical + Vortex: 1hr + 30s 
+MLVR3,Total,10ml,Total_Chemical_Vortex_Rnase_ammonium_acetate,,glycerol,N,Sample,Chemical_Vortex,60min,,30s,Rnase_ammonium_acetate,,MLVR,Total_phase3,Chemical + Vortex: 1hr + 30s 
+MLVW1,Total,10ml,Total_Chemical_Vortex_,,glycerol,N,Sample,Chemical_Vortex,60min,,30s,,,MLVW,Total_phase3,Chemical + Vortex: 1hr + 30s 
+MLVW2,Total,10ml,Total_Chemical_Vortex_,,glycerol,N,Sample,Chemical_Vortex,60min,,30s,,,MLVW,Total_phase3,Chemical + Vortex: 1hr + 30s 
+MLVW3,Total,10ml,Total_Chemical_Vortex_,,glycerol,N,Sample,Chemical_Vortex,60min,,30s,,,MLVW,Total_phase3,Chemical + Vortex: 1hr + 30s 
+MVR1,Total,10ml,Total_Vortex_Rnase_ammonium_acetate,,glycerol,N,Sample,Vortex,,,30s,Rnase_ammonium_acetate,,MVR,Total_phase3,Vortex: 30s
+MVR2,Total,10ml,Total_Vortex_Rnase_ammonium_acetate,,glycerol,N,Sample,Vortex,,,30s,Rnase_ammonium_acetate,,MVR,Total_phase3,Vortex: 30s
+MVR3,Total,10ml,Total_Vortex_Rnase_ammonium_acetate,,glycerol,N,Sample,Vortex,,,30s,Rnase_ammonium_acetate,,MVR,Total_phase3,Vortex: 30s
+MVW1,Total,10ml,Total_Vortex_,,glycerol,N,Sample,Vortex,,,30s,,,MVW,Total_phase3,Vortex: 30s
+MVW2,Total,10ml,Total_Vortex_,,glycerol,N,Sample,Vortex,,,30s,,,MVW,Total_phase3,Vortex: 30s
+MVW3,Total,10ml,Total_Vortex_,,glycerol,N,Sample,Vortex,,,30s,,,MVW,Total_phase3,Vortex: 30s
+P4R1,Microbiome,10ml,Microbiome_Bead_beating_Rnase_ammonium_acetate,,glycerol,N,Sample,Bead_beating,,4_10s,,Rnase_ammonium_acetate,Proteinase K,P4R,Total_ProteinaseK,Bead beat: 10s x 4m/s
+P4R2,Microbiome,10ml,Microbiome_Bead_beating_Rnase_ammonium_acetate,,glycerol,N,Sample,Bead_beating,,4_10s,,Rnase_ammonium_acetate,Proteinase K,P4R,Total_ProteinaseK,Bead beat: 10s x 4m/s
+P4R3,Microbiome,10ml,Microbiome_Bead_beating_Rnase_ammonium_acetate,,glycerol,N,Sample,Bead_beating,,4_10s,,Rnase_ammonium_acetate,Proteinase K,P4R,Total_ProteinaseK,Bead beat: 10s x 4m/s
+P4W1,Microbiome,10ml,Microbiome_Bead_beating_,,glycerol,N,Sample,Bead_beating,,4_10s,,,Proteinase K,P4W,Total_ProteinaseK,Bead beat: 10s x 4m/s
+P4W2,Microbiome,10ml,Microbiome_Bead_beating_,,glycerol,N,Sample,Bead_beating,,4_10s,,,Proteinase K,P4W,Total_ProteinaseK,Bead beat: 10s x 4m/s
+P4W3,Microbiome,10ml,Microbiome_Bead_beating_,,glycerol,N,Sample,Bead_beating,,4_10s,,,Proteinase K,P4W,Total_ProteinaseK,Bead beat: 10s x 4m/s
+PL4R1,Microbiome,10ml,Microbiome_Chemical_Bead_beating_Rnase_ammonium_acetate,,glycerol,N,Sample,Chemical_Bead_beating,60min,4_10s,,Rnase_ammonium_acetate,Proteinase K,PL4R,Total_ProteinaseK,Chemical + Bead beat: 1hr + 10s x 4m/s
+PL4R2,Microbiome,10ml,Microbiome_Chemical_Bead_beating_Rnase_ammonium_acetate,,glycerol,N,Sample,Chemical_Bead_beating,60min,4_10s,,Rnase_ammonium_acetate,Proteinase K,PL4R,Total_ProteinaseK,Chemical + Bead beat: 1hr + 10s x 4m/s
+PL4R3,Microbiome,10ml,Microbiome_Chemical_Bead_beating_Rnase_ammonium_acetate,,glycerol,N,Sample,Chemical_Bead_beating,60min,4_10s,,Rnase_ammonium_acetate,Proteinase K,PL4R,Total_ProteinaseK,Chemical + Bead beat: 1hr + 10s x 4m/s
+PL4W1,Microbiome,10ml,Microbiome_Chemical_Bead_beating_,,glycerol,N,Sample,Chemical_Bead_beating,60min,4_10s,,,Proteinase K,PL4W,Total_ProteinaseK,Chemical + Bead beat: 1hr + 10s x 4m/s
+PL4W2,Microbiome,10ml,Microbiome_Chemical_Bead_beating_,,glycerol,N,Sample,Chemical_Bead_beating,60min,4_10s,,,Proteinase K,PL4W,Total_ProteinaseK,Chemical + Bead beat: 1hr + 10s x 4m/s
+PL4W3,Microbiome,10ml,Microbiome_Chemical_Bead_beating_,,glycerol,N,Sample,Chemical_Bead_beating,60min,4_10s,,,Proteinase K,PL4W,Total_ProteinaseK,Chemical + Bead beat: 1hr + 10s x 4m/s
+PLVR1,Microbiome,10ml,Microbiome_Chemical_Vortex_Rnase_ammonium_acetate,,glycerol,N,Sample,Chemical_Vortex,60min,,30s,Rnase_ammonium_acetate,Proteinase K,PLVR,Total_ProteinaseK,Chemical + Vortex: 1hr + 30s 
+PLVR2,Microbiome,10ml,Microbiome_Chemical_Vortex_Rnase_ammonium_acetate,,glycerol,N,Sample,Chemical_Vortex,60min,,30s,Rnase_ammonium_acetate,Proteinase K,PLVR,Total_ProteinaseK,Chemical + Vortex: 1hr + 30s 
+PLVR3,Microbiome,10ml,Microbiome_Chemical_Vortex_Rnase_ammonium_acetate,,glycerol,N,Sample,Chemical_Vortex,60min,,30s,Rnase_ammonium_acetate,Proteinase K,PLVR,Total_ProteinaseK,Chemical + Vortex: 1hr + 30s 
+PLVW1,Microbiome,10ml,Microbiome_Chemical_Vortex_,,glycerol,N,Sample,Chemical_Vortex,60min,,30s,,Proteinase K,PLVW,Total_ProteinaseK,Chemical + Vortex: 1hr + 30s 
+PLVW2,Microbiome,10ml,Microbiome_Chemical_Vortex_,,glycerol,N,Sample,Chemical_Vortex,60min,,30s,,Proteinase K,PLVW,Total_ProteinaseK,Chemical + Vortex: 1hr + 30s 
+PLVW3,Microbiome,10ml,Microbiome_Chemical_Vortex_,,glycerol,N,Sample,Chemical_Vortex,60min,,30s,,Proteinase K,PLVW,Total_ProteinaseK,Chemical + Vortex: 1hr + 30s 
+PVR1,Microbiome,10ml,Microbiome_Vortex_Rnase_ammonium_acetate,,glycerol,N,Sample,Vortex,,,30s,Rnase_ammonium_acetate,Proteinase K,PVR,Total_ProteinaseK,Vortex: 30s
+PVR2,Microbiome,10ml,Microbiome_Vortex_Rnase_ammonium_acetate,,glycerol,N,Sample,Vortex,,,30s,Rnase_ammonium_acetate,Proteinase K,PVR,Total_ProteinaseK,Vortex: 30s
+PVR3,Microbiome,10ml,Microbiome_Vortex_Rnase_ammonium_acetate,,glycerol,N,Sample,Vortex,,,30s,Rnase_ammonium_acetate,Proteinase K,PVR,Total_ProteinaseK,Vortex: 30s
+PVW1,Microbiome,10ml,Microbiome_Vortex_,,glycerol,N,Sample,Vortex,,,30s,,Proteinase K,PVW,Total_ProteinaseK,Vortex: 30s
+PVW2,Microbiome,10ml,Microbiome_Vortex_,,glycerol,N,Sample,Vortex,,,30s,,Proteinase K,PVW,Total_ProteinaseK,Vortex: 30s
+PVW3,Microbiome,10ml,Microbiome_Vortex_,,glycerol,N,Sample,Vortex,,,30s,,Proteinase K,PVW,Total_ProteinaseK,Vortex: 30s
+Theo2.1,Expected,Expected,Expected,NA,N,Sample,Theoretical_value,NA,NA,NA,BCMC2,,,Expected,Expected,Expected
+Theo2.2,Expected,Expected,Expected,NA,N,Sample,Theoretical_value,NA,NA,NA,BCMC2,,,Expected,Expected,Expected
+Theo2.3,Expected,Expected,Expected,NA,N,Sample,Theoretical_value,NA,NA,NA,BCMC2,,,Expected,Expected,Expected

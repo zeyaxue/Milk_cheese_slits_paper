@@ -1,0 +1,7 @@
+SampleID,KIT,VOL,STORAGE,MATRIX,PMA,SampleOrCtrl,LYSING,Chemical_time,Bead_beat_speed_time,vortex_time,Description,For_AVE
+IONMB7,MoBio,NA,NA,SKIM-MILK,N,Sample,Bead_beating,NA,6.5_2min,NA,BCMC1,MoBio
+IONMB8,MoBio,NA,NA,SKIM-MILK,N,Sample,Bead_beating,NA,6.5_2min,NA,BCMC1,MoBio
+IONMB9,MoBio,NA,NA,SKIM-MILK,N,Sample,Bead_beating,NA,6.5_2min,NA,BCMC1,MoBio
+Theo1.1,NA,NA,NA,NA,N,Theoretical_value,Theoretical_value,NA,NA,NA,BCMC1,Expected
+Theo1.2,NA,NA,NA,NA,N,Theoretical_value,Theoretical_value,NA,NA,NA,BCMC1,Expected
+Theo1.3,NA,NA,NA,NA,N,Theoretical_value,Theoretical_value,NA,NA,NA,BCMC1,Expected

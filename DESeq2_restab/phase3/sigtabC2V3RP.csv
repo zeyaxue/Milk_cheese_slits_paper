@@ -1,0 +1,6 @@
+"","baseMean","log2FoldChange","lfcSE","stat","pvalue","padj","Kingdom","Phylum","Class","Order","Family","Genus","REC"
+"bc44915a0352691cc51940bd90fc8321",150.70116103264,5.71296375467354,0.545265673052752,9.40459212340013,5.22323936297585e-21,2.03706335156058e-19,"Bacteria","Actinobacteria","Actinobacteria","Actinomycetales","Corynebacteriaceae","Corynebacterium","Corynebacterium"
+"4669f785716df43aa86c9a990e619eb1",5281.97308423077,2.33825668739765,0.636564904180148,2.75430545285028,0.00588168463496648,0.0458771401527385,"Bacteria","Firmicutes","Bacilli","Lactobacillales","Streptococcaceae","Streptococcus","Streptococcus"
+"c9bf5c74d65804a3c12ee5f33a35ce53",1400.06740984441,2.80844070445934,0.637683643139803,3.48680451138798,0.000488828531212365,0.00635477090576075,"Bacteria","Firmicutes","Bacilli","Lactobacillales","Enterococcaceae","Enterococcus","Enterococcus"
+"37ced62c7d3d02789744b29b973c6495",3788.16314701902,2.4460238217434,0.599639841671729,3.10363186647807,0.00191161025857359,0.0186382000210925,"Bacteria","Firmicutes","Bacilli","Bacillales","Bacillaceae","Bacillus","Bacillus"
+"91f309287bb3e7621cabe2c00cedb163",12.2968700030207,-13.9883665450147,2.79960440576832,-4.78760642634977,1.68782236518638e-06,3.29125361211345e-05,"Bacteria","Firmicutes","Clostridia","Clostridiales","Lachnospiraceae","","Lachnospiraceae"

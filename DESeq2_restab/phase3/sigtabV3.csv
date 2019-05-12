@@ -1,0 +1,3 @@
+"","baseMean","log2FoldChange","lfcSE","stat","pvalue","padj","Kingdom","Phylum","Class","Order","Family","Genus","REC"
+"bc44915a0352691cc51940bd90fc8321",150.70116103264,2.19857790556508,0.531408575751354,3.03648732533616,0.00239352171440014,0.0466736734308027,"Bacteria","Actinobacteria","Actinobacteria","Actinomycetales","Corynebacteriaceae","Corynebacterium","Corynebacterium"
+"91f309287bb3e7621cabe2c00cedb163",12.2968700030207,15.7851929594481,3.03516538640472,5.00804026258756,5.49870338749954e-07,2.14449432112482e-05,"Bacteria","Firmicutes","Clostridia","Clostridiales","Lachnospiraceae","","Lachnospiraceae"
